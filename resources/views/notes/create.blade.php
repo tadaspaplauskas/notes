@@ -20,7 +20,7 @@
 
               <label for="exampleFormControlInput1">Tags</label>
 
-              <input type="text" class="form-control" id="tags" name="tags" placeholder="Add tags">
+              <input type="text" class="form-control" id="tags" name="tags" placeholder="Add tags" autocomplete="off">
 
             </div>
 
@@ -47,7 +47,17 @@
 <script>
 
   $(function () {
-    $('#tags').tagsInput();
+    $('#tags').tagsInput({
+      // interactive: true,
+      'autocomplete': {
+        source: [
+          'notes',
+          'quotes',
+          'life',
+          'apples',
+        ]
+      }
+    });
   });
 
 </script>

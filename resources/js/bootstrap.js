@@ -6,3 +6,4 @@ window.$ = window.jQuery = require('jquery');
 
 // https://www.jqueryscript.net/form/Tags-Input-Autocomplete.html
 require('./components/jquery.tagsinput-revisited.js');
+require('./components/jquery-ui.js');
