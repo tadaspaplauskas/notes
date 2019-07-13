@@ -16,6 +16,7 @@
 
                     You are logged in!
 
+                    <a href="{{ route('notes.create') }}">Add a note</a>
 
                 </div>
             </div>
