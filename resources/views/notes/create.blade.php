@@ -14,7 +14,9 @@
             </div>
           @endif
 
-          <form>
+          <form action="{{ route('notes.store') }}" method="POST">
+
+            @csrf
 
             <div class="form-group">
 
