@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Note;
 use Illuminate\Http\Request;
+use Auth;
 
 class NoteController extends Controller
 {
@@ -14,7 +15,9 @@ class NoteController extends Controller
      */
     public function index()
     {
-        //
+        $notes = Auth::user()->notes;
+
+        return view('notes.index', ['notes' => $notes]);
     }
 
     /**
@@ -35,7 +38,15 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $data = $request->validate([
+            'tags' => '',
+            'text' => 'required',
+        ]);
+
+        $note = Auth::user()->notes()->create($data);
+
+        return redirect()->route('notes.index')
+            ->withMessage('Note created successfully');
     }
 
     /**

@@ -20,7 +20,7 @@
 
             <div class="form-group">
 
-              <label for="exampleFormControlInput1">Tags</label>
+              <label for="tags">Tags</label>
 
               <input type="text" class="form-control" id="tags" name="tags" placeholder="Add tags" autocomplete="off">
 
@@ -28,7 +28,7 @@
 
             <div class="form-group">
 
-              <label for="exampleFormControlTextarea1">Text</label>
+              <label for="text">Text</label>
 
               <textarea class="form-control" id="text" name="text" rows="3"></textarea>
 
