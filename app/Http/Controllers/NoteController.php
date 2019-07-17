@@ -45,6 +45,14 @@ class NoteController extends Controller
 
         $note = Auth::user()->notes()->create($data);
 
+        $inputTags = explode(',', $data['tags']);
+
+        foreach ($inputTags as $t) {
+            $tag = Auth::user()->tags()->firstOrCreate(['name' => strtolower(trim($t))]);
+
+            $note->tags()->attach($tag);
+        }
+
         return redirect()->route('notes.index')
             ->withMessage('Note created successfully');
     }

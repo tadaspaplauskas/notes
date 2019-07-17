@@ -43,6 +43,7 @@ class NoteTest extends TestCase
 
         $response = $this->actingAs($this->user)
             ->post(route('notes.store'), [
+                'tags' => 'recipes,quotes',
                 'text' => $note->text,
             ])
             ->assertStatus(302)
@@ -50,9 +51,13 @@ class NoteTest extends TestCase
                 'message' => 'Note created successfully'
             ]);
 
-        $this->assertDatabaseHas('notes', [
-            'text' => $note->text,
-            'user_id' => $this->user->id,
-        ]);
+        $note = $this->user->notes()->where('text', $note->text)->first();
+
+        $this->assertNotNull($note);
+
+        $tags = $note->tags->pluck('name');
+
+        $this->assertTrue($tags->contains('recipes'));
+        $this->assertTrue($tags->contains('quotes'));
     }
 }

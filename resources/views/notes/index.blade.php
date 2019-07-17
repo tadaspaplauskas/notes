@@ -24,7 +24,7 @@
 
             @foreach ($notes as $note)
 
-              <p>{{ $note->text }}</p>
+              <p>{{ implode(', ', $note->tags->pluck('name')->toArray()) }}: {{ $note->text }}</p>
 
             @endforeach
 
