@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\Note;
+use App\Tag;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $notes = Auth::user()->notes;
+        $tags = Auth::user()->tags()->withCount('notes')->get();
+
+        return view('home', [
+            'notes' => $notes,
+            'tags' => $tags,
+        ]);
     }
 }

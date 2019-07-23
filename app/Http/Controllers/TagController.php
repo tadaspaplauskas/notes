@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Note;
 use Illuminate\Http\Request;
+use App\Tag;
 use Auth;
 
-class NoteController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,6 +15,7 @@ class NoteController extends Controller
      */
     public function index()
     {
+
     }
 
     /**
@@ -24,7 +25,7 @@ class NoteController extends Controller
      */
     public function create()
     {
-        return view('notes.create');
+        //
     }
 
     /**
@@ -35,43 +36,46 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'tags' => '',
-            'text' => 'required',
-        ]);
-
-        $note = Auth::user()->notes()->create($data);
-
-        $inputTags = explode(',', $data['tags']);
-
-        foreach ($inputTags as $t) {
-            $tag = Auth::user()->tags()->firstOrCreate(['name' => strtolower(trim($t))]);
-
-            $note->tags()->attach($tag);
-        }
-
-        return redirect()->route('notes.index')
-            ->withMessage('Note created successfully');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Note  $note
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show(Note $note)
+    public function show(Tag $tag)
     {
-        //
+        $notes = $tag->notes()
+            ->with(['tags' => function ($q) { $q->withCount('notes'); }])
+            ->get();
+
+        $tags = collect();
+
+        foreach ($notes as $note) {
+            foreach($note->tags as $nt) {
+                if ($tags->has($nt->id) || $nt->id === $tag->id)
+                    continue;
+
+                $tags->put($nt->id, $nt);
+            }
+        }
+
+        return view('tags.show', [
+            'tag' => $tag,
+            'tags' => $tags,
+            'notes' => $notes,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Note  $note
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(Note $note)
+    public function edit(Tag $tag)
     {
         //
     }
@@ -80,10 +84,10 @@ class NoteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Note  $note
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Note $note)
+    public function update(Request $request, Tag $tag)
     {
         //
     }
@@ -91,10 +95,10 @@ class NoteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Note  $note
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Note $note)
+    public function destroy(Tag $tag)
     {
         //
     }
