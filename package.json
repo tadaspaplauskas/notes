@@ -24,7 +24,6 @@
         "tiptap": "^1.23.6",
         "tiptap-extensions": "^1.25.1",
         "vue": "^2.5.17",
-        "vue-svg-loader": "^0.12.0",
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {}
