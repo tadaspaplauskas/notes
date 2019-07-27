@@ -6,7 +6,7 @@
     <div class="row">
 
       <div class="col-md-2 border overflow-auto bg-white" style="height: 80vh">
-        <h2 class="d-flex justify-content-between align-items-center">
+        <h2 class="mt-2 d-flex justify-content-between align-items-center">
             Tags
             <button class="btn btn-secondary btn-sm">+</button>
         </h2>
@@ -21,7 +21,7 @@
 
       <div class="col-md-4 border overflow-auto bg-white" style="height: 80vh">
 
-        <h2 class="d-flex justify-content-between align-items-center">
+        <h2 class="mt-2 d-flex justify-content-between align-items-center">
             Notes
             <button class="btn btn-secondary btn-sm">+</button>
         </h2>
@@ -54,7 +54,7 @@
 
       </div>
 
-      <div class="col-md-6 border overflow-auto bg-white" style="height: 80vh">
+      <div class="content-editor pt-2 col-md-6 border overflow-auto bg-white" style="height: 80vh">
 
         <editor></editor>
 

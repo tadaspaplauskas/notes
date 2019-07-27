@@ -4,4 +4,6 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-@import 'editor/main';
+.content-editor {
+    @import 'editor/main';
+}
