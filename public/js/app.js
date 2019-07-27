@@ -1705,152 +1705,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    EditorContent: tiptap__WEBPACK_IMPORTED_MODULE_0__["EditorContent"],
-    EditorMenuBar: tiptap__WEBPACK_IMPORTED_MODULE_0__["EditorMenuBar"]
+    EditorContent: tiptap__WEBPACK_IMPORTED_MODULE_0__["EditorContent"]
   },
   data: function data() {
     return {
+      keepInBounds: true,
       editor: new tiptap__WEBPACK_IMPORTED_MODULE_0__["Editor"]({
         extensions: [new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Blockquote"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["BulletList"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["CodeBlock"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["HardBreak"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Heading"]({
-          levels: [1, 2, 3]
+          levels: [1, 2, 3, 4, 5, 6]
         }), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["HorizontalRule"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["ListItem"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["OrderedList"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["TodoItem"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["TodoList"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Link"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Bold"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Code"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Italic"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Strike"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Underline"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["History"]()],
-        content: "\n          <h2>\n            Hi there,\n          </h2>\n          <p>\n            this is a very <em>basic</em> example of tiptap.\n          </p>\n          <pre><code>body { display: none; }</code></pre>\n          <ul>\n            <li>\n              A regular list\n            </li>\n            <li>\n              With regular items\n            </li>\n          </ul>\n          <blockquote>\n            It's amazing \uD83D\uDC4F\n            <br />\n            \u2013 mom\n          </blockquote>\n        "
+        content: "\n          <h2>\n            Menu Bubble\n          </h2>\n          <p>\n            Hey, try to select some text here. There will popup a menu for selecting some inline styles. <em>Remember:</em> you have full control about content and styling of this menu.\n          </p>\n        "
       })
     };
   },
@@ -45725,84 +45593,6 @@ var render = function() {
     "div",
     { staticClass: "editor" },
     [
-      _c("editor-menu-bar", {
-        attrs: { editor: _vm.editor },
-        scopedSlots: _vm._u([
-          {
-            key: "default",
-            fn: function(ref) {
-              var commands = ref.commands
-              var isActive = ref.isActive
-              return [
-                _c("div", { staticClass: "menubar" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "menubar__button",
-                      class: { "is-active": isActive.bold() },
-                      on: { click: commands.bold }
-                    },
-                    [
-                      _c(
-                        "svg",
-                        {
-                          attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            viewBox: "0 0 24 24"
-                          }
-                        },
-                        [
-                          _c("title", [_vm._v("text-bold")]),
-                          _c("path", {
-                            attrs: {
-                              d:
-                                "M17.194,10.962A6.271,6.271,0,0,0,12.844.248H4.3a1.25,1.25,0,0,0,0,2.5H5.313a.25.25,0,0,1,.25.25V21a.25.25,0,0,1-.25.25H4.3a1.25,1.25,0,1,0,0,2.5h9.963a6.742,6.742,0,0,0,2.93-12.786Zm-4.35-8.214a3.762,3.762,0,0,1,0,7.523H8.313a.25.25,0,0,1-.25-.25V3a.25.25,0,0,1,.25-.25Zm1.42,18.5H8.313a.25.25,0,0,1-.25-.25V13.021a.25.25,0,0,1,.25-.25h4.531c.017,0,.033,0,.049,0l.013,0h1.358a4.239,4.239,0,0,1,0,8.477Z"
-                            }
-                          })
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "menubar__button",
-                      class: { "is-active": isActive.italic() },
-                      on: { click: commands.italic }
-                    },
-                    [_c("icon", { attrs: { name: "italic" } })],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "menubar__button",
-                      class: { "is-active": isActive.strike() },
-                      on: { click: commands.strike }
-                    },
-                    [_c("icon", { attrs: { name: "strike" } })],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "menubar__button",
-                      class: { "is-active": isActive.underline() },
-                      on: { click: commands.underline }
-                    },
-                    [_c("icon", { attrs: { name: "underline" } })],
-                    1
-                  )
-                ])
-              ]
-            }
-          }
-        ])
-      }),
-      _vm._v(" "),
       _c("editor-content", {
         staticClass: "editor__content",
         attrs: { editor: _vm.editor }
