@@ -35,7 +35,7 @@
                     <ul class="navbar-nav mr-auto">
                         @auth
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('+ Add Note') }}</a>
+                                <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">{{ __('+ Add Note') }}</a>
                             </li>
 
                             <li class="nav-item">
