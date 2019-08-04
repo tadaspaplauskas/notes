@@ -30,6 +30,7 @@ export default {
   components: {
     EditorContent,
   },
+  props: ['initialContent'],
   data() {
     return {
       keepInBounds: true,
@@ -53,14 +54,7 @@ export default {
           new Underline(),
           new History(),
         ],
-        content: `
-          <h2>
-            Menu Bubble
-          </h2>
-          <p>
-            Hey, try to select some text here. There will popup a menu for selecting some inline styles. <em>Remember:</em> you have full control about content and styling of this menu.
-          </p>
-        `,
+        content: this.initialContent,
       }),
     }
   },
@@ -69,4 +63,3 @@ export default {
   },
 }
 </script>
-

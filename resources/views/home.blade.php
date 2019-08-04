@@ -1,68 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="container" style="width: 100vw">
+  <notes class="container-fluid" inline-template v-cloak>
 
-    <div class="row">
+    <div class="row" style="height: 85vh">
 
-      <div class="col-md-2 border overflow-auto bg-white" style="height: 80vh">
-        <h2 class="mt-2 d-flex justify-content-between align-items-center">
-            Tags
-            <button class="btn btn-secondary btn-sm">+</button>
+      <div class="col-3 border{{--  overflow-auto --}} bg-white pt-2">
+
+        <h2>
+          Tags
+          <button class="btn btn-light btn-sm">+ Add</button>
         </h2>
 
         <div class="list-group list-group-flush">
           <button type="button" class="list-group-item  d-flex justify-content-between align-items-center active">
-            cons
-            <span class="badge badge-primary badge-pill">14</span>
+            turizmas
+            <span class="badge badge-primary badge-pill bg-white text-primary">14</span>
+          </button>
+
+          <button type="button" class="list-group-item  d-flex justify-content-between align-items-center">
+            festivaliai
+            <span class="badge badge-primary badge-pill">3</span>
+          </button>
+
+          <button type="button" class="list-group-item  d-flex justify-content-between align-items-center">
+            motociklai
+            <span class="badge badge-primary badge-pill">9</span>
           </button>
         </div>
-    </div>
+      </div>
 
-      <div class="col-md-4 border overflow-auto bg-white" style="height: 80vh">
+      <div class="col content-editor pt-2 border{{--  overflow-auto --}} bg-white">
 
-        <h2 class="mt-2 d-flex justify-content-between align-items-center">
-            Notes
-            <button class="btn btn-secondary btn-sm">+</button>
-        </h2>
+        <button class="btn btn-light btn-sm"
+          @click="addSnippet"
+          v-if="!snippets.length"
+        >+ Add</button>
 
-        <div class="list-group list-group-flush">
-          <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item</h5>
-              <small>3 days ago</small>
-            </div>
-            <small>Donec id elit non mi porta.</small>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small class="text-muted">3 days ago</small>
-            </div>
-            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-            <small class="text-muted">Donec id elit non mi porta.</small>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">List group item heading</h5>
-              <small class="text-muted">3 days ago</small>
-            </div>
-            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-            <small class="text-muted">Donec id elit non mi porta.</small>
-          </a>
+
+        <div v-else class="row" v-for="snippet in snippets">
+          <div class="col-1">
+            <button class="btn btn-light btn-sm" @click="addSnippet">+ Add</button>
+          </div>
+          <div class="col">
+            <editor
+              :initial-content="snippet.content"
+              style="max-width: 40rem"></editor>
+          </div>
+
+          <div class="col-1 small text-right">
+            2019-08-02
+          </div>
+
         </div>
 
       </div>
-
-      <div class="content-editor pt-2 col-md-6 border overflow-auto bg-white" style="height: 80vh">
-
-        <editor></editor>
-
-      </div>
-
     </div>
-
-  </div>
+  </notes>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
