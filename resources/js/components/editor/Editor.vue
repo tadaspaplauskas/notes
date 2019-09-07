@@ -55,6 +55,7 @@ export default {
           new History(),
         ],
         content: this.note.content,
+        autoFocus: this.note.id === undefined, // new note gets autofocus
         onUpdate: (editor) => {
           this.note.content = editor.getHTML()
           EventBus.$emit('note-updated', this.note)

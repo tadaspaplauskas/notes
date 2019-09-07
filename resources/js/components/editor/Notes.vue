@@ -28,7 +28,6 @@ export default {
     },
       addNote() {
         this.notes.push({
-          focus: true,
           content: `
             <p>
             </p>

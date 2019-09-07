@@ -1722,6 +1722,8 @@ __webpack_require__.r(__webpack_exports__);
           levels: [1, 2, 3, 4, 5, 6]
         }), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["HorizontalRule"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["ListItem"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["OrderedList"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["TodoItem"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["TodoList"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Link"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Bold"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Code"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Italic"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Strike"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Underline"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["History"]()],
         content: this.note.content,
+        autoFocus: this.note.id === undefined,
+        // new note gets autofocus
         onUpdate: function onUpdate(editor) {
           _this.note.content = editor.getHTML();
           EventBus.$emit('note-updated', _this.note);
@@ -1776,7 +1778,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     addNote: function addNote() {
       this.notes.push({
-        focus: true,
         content: "\n            <p>\n            </p>\n        "
       });
     },
