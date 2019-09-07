@@ -1754,7 +1754,7 @@ __webpack_require__.r(__webpack_exports__);
     loadNotes: function loadNotes() {
       var _this = this;
 
-      axios.get('/api/notes').then(function (response) {
+      axios.get('/notes').then(function (response) {
         _this.notes = response.data.data;
       })["catch"](function (error) {
         console.log(error.response.data);
@@ -1763,7 +1763,7 @@ __webpack_require__.r(__webpack_exports__);
     addNote: function addNote() {
       var _this2 = this;
 
-      axios.post('/api/notes', data).then(function (response) {
+      axios.post('/notes', data).then(function (response) {
         _this2.notes.push({
           focus: true,
           content: "\n                <p>\n                </p>\n            "

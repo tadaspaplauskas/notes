@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Tag;
 use Auth;
-use App\Http\Controllers\Controller;
 
 class TagController extends Controller
 {

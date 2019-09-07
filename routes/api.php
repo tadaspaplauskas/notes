@@ -13,7 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware(['auth'])->namespace('Api')->name('api.')->group(function () {
+Route::group(['middleware' => 'auth'], function () {
+
     Route::resource('notes', 'NoteController');
     Route::resource('tags', 'TagController');
+
 });

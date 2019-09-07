@@ -29,7 +29,7 @@ class NoteTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->get(route('api.notes.index'))
+            ->get(route('notes.index'))
             ->assertStatus(200);
 
         foreach ($notes as $note) {
@@ -42,7 +42,7 @@ class NoteTest extends TestCase
         $note = factory(Note::class)->make();
 
         $response = $this->actingAs($this->user)
-            ->post(route('api.notes.store'), [
+            ->post(route('notes.store'), [
                 'tags' => 'recipes,quotes',
                 'text' => $note->text,
             ])

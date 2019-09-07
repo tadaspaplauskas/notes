@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     loadNotes() {
-      axios.get('/api/notes')
+      axios.get('/notes')
         .then(response => {
           this.notes = response.data.data
         })
@@ -26,7 +26,7 @@ export default {
     },
     addNote() {
 
-      axios.post('/api/notes', data)
+      axios.post('/notes', data)
         .then(response => {
             this.notes.push({
               focus: true,
