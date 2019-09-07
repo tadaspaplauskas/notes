@@ -46,7 +46,8 @@
             <div class="col" contenteditable="true"
               style="max-width: 40rem; margin-bottom: 1rem;"
               @blur="saveNote(note, $event.target.innerText, $event)"
-            >@{{ note.content }}</div>
+              v-text="note.content"
+            ></div>
 
             <div class="col-1 small text-right">
               <button type="button" class="close" aria-label="Delete"
