@@ -45,7 +45,7 @@
           <div class="col">
             <editor
               :initial-content="snippet.content"
-              style="max-width: 40rem"></editor>
+              style="max-width: 40rem; margin-bottom: 1rem;"></editor>
           </div>
 
           <div class="col-1 small text-right">
