@@ -25,12 +25,14 @@ class NoteController extends Controller
 
         $note = $request->user()->notes()->create($data);
 
-        $inputTags = explode(',', $data['tags']);
+        if (isset($data['tags'])) {
+            $inputTags = explode(',', $data['tags']);
 
-        foreach ($inputTags as $t) {
-            $tag = $request->user()->tags()->firstOrCreate(['name' => strtolower(trim($t))]);
+            foreach ($inputTags as $t) {
+                $tag = $request->user()->tags()->firstOrCreate(['name' => strtolower(trim($t))]);
 
-            $note->tags()->attach($tag);
+                $note->tags()->attach($tag);
+            }
         }
 
         return new NoteResource($note);

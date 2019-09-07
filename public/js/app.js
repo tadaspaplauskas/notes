@@ -1763,7 +1763,7 @@ __webpack_require__.r(__webpack_exports__);
     this.loadNotes();
     EventBus.$on('note-updated', Object(lodash__WEBPACK_IMPORTED_MODULE_0__["debounce"])(function (note) {
       _this.saveNote(note);
-    }, 3000));
+    }, 1000));
   },
   computed: {},
   methods: {
@@ -1778,12 +1778,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     addNote: function addNote() {
       this.notes.push({
-        content: "\n            <p>\n            </p>\n        "
+        content: "\n          <p>\n          </p>\n      "
       });
     },
     saveNote: function saveNote(note) {
+      // exists
+      if (note.id) this.updateNote(note);else this.createNote(note);
+    },
+    updateNote: function updateNote(note) {
       axios.put('/notes/' + note.id, note).then(function (response) {
         note = response.data.data;
+      })["catch"](function (error) {
+        console.log(error.response.data);
+      });
+    },
+    createNote: function createNote(note) {
+      axios.post('/notes', note).then(function (response) {
+        Object(lodash__WEBPACK_IMPORTED_MODULE_0__["assign"])(note, response.data.data);
       })["catch"](function (error) {
         console.log(error.response.data);
       });
