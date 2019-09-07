@@ -18,6 +18,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Note::class, function (Faker $faker) {
     return [
-        'text' => $faker->paragraph,
+        'content' => $faker->paragraph,
     ];
 });

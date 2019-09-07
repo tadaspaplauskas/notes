@@ -42,14 +42,17 @@
         <div class="{{-- content-editor --}}">
 
           <div class="row" v-for="note in notes">
-            <div class="col">
+            <div class="col"
+              :title="'Updated ' +  note.updated_at">
               <editor
-                :initial-content="note.text"
+                :note="note"
                 style="max-width: 40rem; margin-bottom: 1rem;"></editor>
             </div>
 
-            <div class="col-2 small text-right">
-              2019-08-02
+            <div class="col-1 small text-right">
+              <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
 
           </div>

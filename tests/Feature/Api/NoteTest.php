@@ -33,7 +33,7 @@ class NoteTest extends TestCase
             ->assertStatus(200);
 
         foreach ($notes as $note) {
-            $response->assertSee($note->text);
+            $response->assertSee($note->content);
         }
     }
 
@@ -44,11 +44,11 @@ class NoteTest extends TestCase
         $response = $this->actingAs($this->user)
             ->post(route('notes.store'), [
                 'tags' => 'recipes,quotes',
-                'text' => $note->text,
+                'content' => $note->content,
             ])
             ->assertStatus(201);
 
-        $note = $this->user->notes()->where('text', $note->text)->first();
+        $note = $this->user->notes()->where('content', $note->content)->first();
 
         $this->assertNotNull($note);
 
@@ -56,5 +56,24 @@ class NoteTest extends TestCase
 
         $this->assertTrue($tags->contains('recipes'));
         $this->assertTrue($tags->contains('quotes'));
+    }
+
+    public function testUpdateNote()
+    {
+        $note = factory(Note::class)->create([
+            'user_id' => $this->user->id,
+        ]);
+
+        $updated = factory(Note::class)->make();
+
+        $response = $this->actingAs($this->user)
+            ->put(route('notes.update', $note), [
+                'content' => $updated->content,
+            ])
+            ->assertStatus(200);
+
+        $note = $this->user->notes()->where('content', $updated->content)->first();
+
+        $this->assertNotNull($note);
     }
 }

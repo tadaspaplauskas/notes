@@ -30,7 +30,7 @@ export default {
   components: {
     EditorContent,
   },
-  props: ['initialContent'],
+  props: ['note'],
   data() {
     return {
       keepInBounds: true,
@@ -54,7 +54,11 @@ export default {
           new Underline(),
           new History(),
         ],
-        content: this.initialContent,
+        content: this.note.content,
+        onUpdate: (editor) => {
+          this.note.content = editor.getHTML()
+          EventBus.$emit('note-updated', this.note)
+        },
       }),
     }
   },

@@ -1,4 +1,5 @@
 <script>
+import {debounce} from "lodash";
 
 export default {
   data() {
@@ -9,6 +10,9 @@ export default {
   },
   mounted() {
     this.loadNotes()
+
+    EventBus.$on('note-updated', debounce((note) => { this.saveNote(note) }, 3000))
+
   },
   computed: {
   },
@@ -16,33 +20,29 @@ export default {
     loadNotes() {
       axios.get('/notes')
         .then(response => {
-          this.notes = response.data
+          this.notes = response.data.data
         })
         .catch(error => {
           console.log(error.response.data)
         })
-
-
     },
-    addNote() {
-
-      axios.post('/notes', data)
+      addNote() {
+        this.notes.push({
+          focus: true,
+          content: `
+            <p>
+            </p>
+        `
+        })
+    },
+    saveNote(note) {
+        axios.put('/notes/' + note.id, note)
         .then(response => {
-            this.notes.push({
-              focus: true,
-              content: `
-                <p>
-                </p>
-            `
-            });
+            note = response.data.data
         })
         .catch(error => {
             console.log(error.response.data)
         })
-    },
-    saveNotes() {
-
-
     },
   },
 

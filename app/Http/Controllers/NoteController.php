@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Note;
 use Illuminate\Http\Request;
 use Auth;
+use App\Http\Resources\NoteResource;
 
 class NoteController extends Controller
 {
@@ -12,27 +13,27 @@ class NoteController extends Controller
     {
         $notes = $request->user()->notes;
 
-        return response()->json($notes);
+        return NoteResource::collection($notes);
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
-            'tags' => '',
-            'text' => 'required',
+            'content' => 'required',
+            'tags' => ''
         ]);
 
-        $note = Auth::user()->notes()->create($data);
+        $note = $request->user()->notes()->create($data);
 
         $inputTags = explode(',', $data['tags']);
 
         foreach ($inputTags as $t) {
-            $tag = Auth::user()->tags()->firstOrCreate(['name' => strtolower(trim($t))]);
+            $tag = $request->user()->tags()->firstOrCreate(['name' => strtolower(trim($t))]);
 
             $note->tags()->attach($tag);
         }
 
-        return response()->json($note, 201);
+        return new NoteResource($note);
     }
 
     public function show(Note $note)
@@ -54,7 +55,24 @@ class NoteController extends Controller
      */
     public function update(Request $request, Note $note)
     {
-        //
+        $data = $request->validate([
+            'content' => 'required',
+            'tags' => ''
+        ]);
+
+        $note->update($data);
+
+        if (isset($data['tags'])) {
+            $inputTags = explode(',', $data['tags']);
+
+            foreach ($inputTags as $t) {
+                $tag = $request->user()->tags()->firstOrCreate(['name' => strtolower(trim($t))]);
+
+                $note->tags()->attach($tag);
+            }
+        }
+
+        return new NoteResource($note);
     }
 
     /**
