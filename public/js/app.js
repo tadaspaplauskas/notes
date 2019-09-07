@@ -1713,23 +1713,28 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['note'],
   data: function data() {
+    return {
+      // note: this.noteProp,
+      keepInBounds: true,
+      editor: null
+    };
+  },
+  mounted: function mounted() {
     var _this = this;
 
-    return {
-      keepInBounds: true,
-      editor: new tiptap__WEBPACK_IMPORTED_MODULE_0__["Editor"]({
-        extensions: [new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Blockquote"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["BulletList"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["CodeBlock"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["HardBreak"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Heading"]({
-          levels: [1, 2, 3, 4, 5, 6]
-        }), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["HorizontalRule"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["ListItem"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["OrderedList"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["TodoItem"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["TodoList"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Link"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Bold"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Code"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Italic"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Strike"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Underline"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["History"]()],
-        content: this.note.content,
-        autoFocus: this.note.id === undefined,
-        // new note gets autofocus
-        onUpdate: function onUpdate(editor) {
-          _this.note.content = editor.getHTML();
-          EventBus.$emit('note-updated', _this.note);
-        }
-      })
-    };
+    this.editor = new tiptap__WEBPACK_IMPORTED_MODULE_0__["Editor"]({
+      extensions: [new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Blockquote"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["BulletList"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["CodeBlock"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["HardBreak"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Heading"]({
+        levels: [1, 2, 3, 4, 5, 6]
+      }), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["HorizontalRule"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["ListItem"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["OrderedList"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["TodoItem"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["TodoList"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Link"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Bold"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Code"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Italic"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Strike"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["Underline"](), new tiptap_extensions__WEBPACK_IMPORTED_MODULE_1__["History"]()],
+      content: this.note.content,
+      autoFocus: this.note.id === undefined,
+      // new note gets autofocus
+      onUpdate: function onUpdate(editor) {
+        _this.note.content = editor.getHTML();
+        EventBus.$emit('note-updated', _this.note);
+      }
+    });
+    this.note.editor = this.editor;
   },
   beforeDestroy: function beforeDestroy() {
     this.editor.destroy();
@@ -1753,8 +1758,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      notes: [],
-      dirty: []
+      notes: []
     };
   },
   mounted: function mounted() {
@@ -1797,6 +1801,17 @@ __webpack_require__.r(__webpack_exports__);
         Object(lodash__WEBPACK_IMPORTED_MODULE_0__["assign"])(note, response.data.data);
       })["catch"](function (error) {
         console.log(error.response.data);
+      });
+    },
+    deleteNote: function deleteNote(note) {
+      var _this3 = this;
+
+      axios["delete"]('/notes/' + note.id).then(function (response) {
+        _this3.notes = _this3.notes.filter(function (obj) {
+          return obj.id !== note.id;
+        });
+        note.editor.destroy();
+        console.log(note.id);
       });
     }
   }

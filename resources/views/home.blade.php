@@ -39,7 +39,7 @@
           @click="addNote">+ Add</button>
         </h2>
 
-        <div class="{{-- content-editor --}}">
+        <div>
 
           <div class="row" v-for="note in notes">
             <div class="col"
@@ -50,7 +50,8 @@
             </div>
 
             <div class="col-1 small text-right">
-              <button type="button" class="close" aria-label="Close">
+              <button type="button" class="close" aria-label="Delete"
+                @click="deleteNote(note)">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>

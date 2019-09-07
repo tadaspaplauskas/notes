@@ -1,18 +1,16 @@
 <script>
-import {debounce, assign} from "lodash";
+import {debounce, assign, find} from "lodash";
 
 export default {
   data() {
     return {
       notes: [],
-      dirty: [],
     }
   },
   mounted() {
     this.loadNotes()
 
     EventBus.$on('note-updated', debounce((note) => { this.saveNote(note) }, 1000))
-
   },
   computed: {
   },
@@ -57,6 +55,20 @@ export default {
         })
         .catch(error => {
             console.log(error.response.data)
+        })
+    },
+    deleteNote(note) {
+      axios.delete('/notes/' + note.id)
+        .then(response => {
+
+
+            this.notes = this.notes.filter(obj => {
+              return obj.id !== note.id
+            })
+
+            note.editor.destroy()
+
+            console.log(note.id)
         })
     },
   },
