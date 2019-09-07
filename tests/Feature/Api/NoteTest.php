@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Api;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -29,7 +29,7 @@ class NoteTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->get(route('notes.index'))
+            ->get(route('api.notes.index'))
             ->assertStatus(200);
 
         foreach ($notes as $note) {
@@ -42,14 +42,11 @@ class NoteTest extends TestCase
         $note = factory(Note::class)->make();
 
         $response = $this->actingAs($this->user)
-            ->post(route('notes.store'), [
+            ->post(route('api.notes.store'), [
                 'tags' => 'recipes,quotes',
                 'text' => $note->text,
             ])
-            ->assertStatus(302)
-            ->withSession([
-                'message' => 'Note created successfully'
-            ]);
+            ->assertStatus(201);
 
         $note = $this->user->notes()->where('text', $note->text)->first();
 

@@ -1742,17 +1742,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      snippets: []
+      notes: [],
+      dirty: []
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this.loadNotes();
+  },
   computed: {},
   methods: {
-    addSnippet: function addSnippet() {
-      this.snippets.push({
-        'content': "\n          <p>\n            Hey, try to select some text here. There will popup a menu for selecting some inline styles. <em>Remember:</em> you have full control about content and styling of this menu.\n          </p>\n        "
+    loadNotes: function loadNotes() {
+      var _this = this;
+
+      axios.get('/api/notes').then(function (response) {
+        _this.notes = response.data.data;
+      })["catch"](function (error) {
+        console.log(error.response.data);
       });
-    }
+    },
+    addNote: function addNote() {
+      var _this2 = this;
+
+      axios.post('/api/notes', data).then(function (response) {
+        _this2.notes.push({
+          focus: true,
+          content: "\n                <p>\n                </p>\n            "
+        });
+      })["catch"](function (error) {
+        console.log(error.response.data);
+      });
+    },
+    saveNotes: function saveNotes() {}
   }
 });
 

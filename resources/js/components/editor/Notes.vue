@@ -3,26 +3,48 @@
 export default {
   data() {
     return {
-      snippets: [],
+      notes: [],
+      dirty: [],
     }
   },
-    mounted() {
+  mounted() {
+    this.loadNotes();
+  },
+  computed: {
+  },
+  methods: {
+    loadNotes() {
+      axios.get('/api/notes')
+        .then(response => {
+          this.notes = response.data.data
+        })
+        .catch(error => {
+          console.log(error.response.data)
+        })
+
 
     },
-    computed: {
-    },
-    methods: {
-      addSnippet() {
-        this.snippets.push({
-          'content': `
-          <p>
-            Hey, try to select some text here. There will popup a menu for selecting some inline styles. <em>Remember:</em> you have full control about content and styling of this menu.
-          </p>
-        `
-        });
+    addNote() {
 
-      },
+      axios.post('/api/notes', data)
+        .then(response => {
+            this.notes.push({
+              focus: true,
+              content: `
+                <p>
+                </p>
+            `
+            });
+        })
+        .catch(error => {
+            console.log(error.response.data)
+        })
     },
+    saveNotes() {
+
+
+    },
+  },
 
 }
 </script>

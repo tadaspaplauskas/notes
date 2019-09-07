@@ -36,21 +36,21 @@
         <h2>
           Notes
           <button class="btn btn-light btn-sm"
-          @click="addSnippet">+ Add</button>
+          @click="addNote">+ Add</button>
         </h2>
 
         <div class="{{-- content-editor --}}">
 
-          <div class="row" v-for="snippet in snippets">
+          <div class="row" v-for="note in notes">
             <div class="col">
               <editor
-                :initial-content="snippet.content"
+                :initial-content="note.content"
                 style="max-width: 40rem; margin-bottom: 1rem;"></editor>
             </div>
 
             <div class="col-2 small text-right">
               2019-08-02
-              <button class="btn btn-link pull-right" @click="addSnippet">+ After</button>
+              <button class="btn btn-link pull-right" @click="addNote">+ After</button>
             </div>
 
           </div>
