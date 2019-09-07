@@ -44,13 +44,12 @@
           <div class="row" v-for="note in notes">
             <div class="col">
               <editor
-                :initial-content="note.content"
+                :initial-content="note.text"
                 style="max-width: 40rem; margin-bottom: 1rem;"></editor>
             </div>
 
             <div class="col-2 small text-right">
               2019-08-02
-              <button class="btn btn-link pull-right" @click="addNote">+ After</button>
             </div>
 
           </div>

@@ -8,7 +8,7 @@ export default {
     }
   },
   mounted() {
-    this.loadNotes();
+    this.loadNotes()
   },
   computed: {
   },
@@ -16,7 +16,7 @@ export default {
     loadNotes() {
       axios.get('/notes')
         .then(response => {
-          this.notes = response.data.data
+          this.notes = response.data
         })
         .catch(error => {
           console.log(error.response.data)

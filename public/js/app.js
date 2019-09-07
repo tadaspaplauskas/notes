@@ -1755,7 +1755,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/notes').then(function (response) {
-        _this.notes = response.data.data;
+        _this.notes = response.data;
       })["catch"](function (error) {
         console.log(error.response.data);
       });
