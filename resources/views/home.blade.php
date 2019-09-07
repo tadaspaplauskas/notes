@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-  <notes class="container-fluid" inline-template v-cloak>
 
-    <div class="row" style="height: 85vh">
+  <notes class="" inline-template v-cloak>
 
-      <div class="col-3 border{{--  overflow-auto --}} bg-white pt-2">
+    <div class="row">
+
+      <div class="col-3 pt-2">
 
         <h2>
           Tags
@@ -30,33 +31,38 @@
         </div>
       </div>
 
-      <div class="col content-editor pt-2 border{{--  overflow-auto --}} bg-white">
+      <div class="col pt-2">
 
-        <button class="btn btn-light btn-sm"
-          @click="addSnippet"
-          v-if="!snippets.length"
-        >+ Add</button>
+        <h2>
+          Notes
+          <button class="btn btn-light btn-sm"
+          @click="addSnippet">+ Add</button>
+        </h2>
 
+        <div class="{{-- content-editor --}}">
 
-        <div v-else class="row" v-for="snippet in snippets">
-          <div class="col-1">
-            <button class="btn btn-light btn-sm" @click="addSnippet">+ Add</button>
-          </div>
-          <div class="col">
-            <editor
-              :initial-content="snippet.content"
-              style="max-width: 40rem; margin-bottom: 1rem;"></editor>
-          </div>
+          <div class="row" v-for="snippet in snippets">
+            <div class="col">
+              <editor
+                :initial-content="snippet.content"
+                style="max-width: 40rem; margin-bottom: 1rem;"></editor>
+            </div>
 
-          <div class="col-1 small text-right">
-            2019-08-02
+            <div class="col-2 small text-right">
+              2019-08-02
+              <button class="btn btn-link pull-right" @click="addSnippet">+ After</button>
+            </div>
+
           </div>
 
         </div>
 
       </div>
+
     </div>
+
   </notes>
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
