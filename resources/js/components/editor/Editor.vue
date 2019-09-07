@@ -66,10 +66,9 @@ export default {
         EventBus.$emit('note-updated', this.note)
       },
     })
-
-    this.note.editor = this.editor
   },
   beforeDestroy() {
+    console.log('jablinkst')
     this.editor.destroy()
   },
 }

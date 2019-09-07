@@ -61,14 +61,13 @@ export default {
       axios.delete('/notes/' + note.id)
         .then(response => {
 
-
             this.notes = this.notes.filter(obj => {
               return obj.id !== note.id
             })
 
-            note.editor.destroy()
+            // note.editor.destroy()
 
-            console.log(note.id)
+            console.log(this.notes)
         })
     },
   },

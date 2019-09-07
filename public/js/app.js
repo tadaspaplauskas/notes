@@ -1734,9 +1734,9 @@ __webpack_require__.r(__webpack_exports__);
         EventBus.$emit('note-updated', _this.note);
       }
     });
-    this.note.editor = this.editor;
   },
   beforeDestroy: function beforeDestroy() {
+    console.log('jablinkst');
     this.editor.destroy();
   }
 });
@@ -1809,9 +1809,9 @@ __webpack_require__.r(__webpack_exports__);
       axios["delete"]('/notes/' + note.id).then(function (response) {
         _this3.notes = _this3.notes.filter(function (obj) {
           return obj.id !== note.id;
-        });
-        note.editor.destroy();
-        console.log(note.id);
+        }); // note.editor.destroy()
+
+        console.log(_this3.notes);
       });
     }
   }
