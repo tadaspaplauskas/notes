@@ -41,13 +41,12 @@
 
         <div>
 
-          <div class="row" v-for="note in notes">
-            <div class="col"
-              :title="'Updated ' +  note.updated_at">
-              <editor
-                :note="note"
-                style="max-width: 40rem; margin-bottom: 1rem;"></editor>
-            </div>
+          <div class="row" v-for="note in notes"
+            :title="'Updated ' +  note.updated_at" >
+            <div class="col" contenteditable="true"
+              style="max-width: 40rem; margin-bottom: 1rem;"
+              @blur="saveNote(note, $event.target.innerText, $event)"
+            >@{{ note.content }}</div>
 
             <div class="col-1 small text-right">
               <button type="button" class="close" aria-label="Delete"

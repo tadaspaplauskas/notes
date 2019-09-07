@@ -9,8 +9,6 @@ export default {
   },
   mounted() {
     this.loadNotes()
-
-    EventBus.$on('note-updated', debounce((note) => { this.saveNote(note) }, 1000))
   },
   computed: {
   },
@@ -32,12 +30,14 @@ export default {
       `
       })
     },
-    saveNote(note) {
-      // exists
-      if (note.id)
-        this.updateNote(note)
-      else
-        this.createNote(note)
+    saveNote(note, content) {
+        note.content = content
+
+        // exists
+        if (note.id)
+          this.updateNote(note)
+        else
+          this.createNote(note)
     },
     updateNote(note) {
       axios.put('/notes/' + note.id, note)
@@ -60,14 +60,9 @@ export default {
     deleteNote(note) {
       axios.delete('/notes/' + note.id)
         .then(response => {
-
-            this.notes = this.notes.filter(obj => {
-              return obj.id !== note.id
-            })
-
-            // note.editor.destroy()
-
-            console.log(this.notes)
+          this.notes = this.notes.filter(obj => {
+            return obj.id !== note.id
+          })
         })
     },
   },

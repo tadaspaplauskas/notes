@@ -1762,20 +1762,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
     this.loadNotes();
-    EventBus.$on('note-updated', Object(lodash__WEBPACK_IMPORTED_MODULE_0__["debounce"])(function (note) {
-      _this.saveNote(note);
-    }, 1000));
   },
   computed: {},
   methods: {
     loadNotes: function loadNotes() {
-      var _this2 = this;
+      var _this = this;
 
       axios.get('/notes').then(function (response) {
-        _this2.notes = response.data.data;
+        _this.notes = response.data.data;
       })["catch"](function (error) {
         console.log(error.response.data);
       });
@@ -1785,8 +1780,9 @@ __webpack_require__.r(__webpack_exports__);
         content: "\n          <p>\n          </p>\n      "
       });
     },
-    saveNote: function saveNote(note) {
-      // exists
+    saveNote: function saveNote(note, content) {
+      note.content = content; // exists
+
       if (note.id) this.updateNote(note);else this.createNote(note);
     },
     updateNote: function updateNote(note) {
@@ -1804,14 +1800,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteNote: function deleteNote(note) {
-      var _this3 = this;
+      var _this2 = this;
 
       axios["delete"]('/notes/' + note.id).then(function (response) {
-        _this3.notes = _this3.notes.filter(function (obj) {
+        _this2.notes = _this2.notes.filter(function (obj) {
           return obj.id !== note.id;
-        }); // note.editor.destroy()
-
-        console.log(_this3.notes);
+        });
       });
     }
   }
