@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('notes/{id}/restore', 'NoteController@restore')->name('notes.restore');
 
     Route::resource('tags', 'TagController');
-    Route::get('tags/{tag}/notes', 'NoteController@index')->name('tags.notes');
+    Route::get('tags/{tag}/notes', 'NoteController@index')->name('tags.notes.index');
+    Route::get('tags/{tag}/notes/create', 'NoteController@create')->name('tags.notes.create');
 
 });

@@ -15,14 +15,14 @@
     list="available_tags"
     class="form-control"
     placeholder="Add tags"
-    value="{{ old('tags', optional($note->tag)->name) }}"
+    value="{{ old('tags', $tag->name) }}"
   >
 
   <datalist id="available_tags">
 
-    @foreach ($tags as $tag)
+    @foreach ($availableTags as $at)
 
-      <option>{{ $tag->name }}</option>
+      <option>{{ $at->name }}</option>
 
     @endforeach
 
@@ -45,4 +45,5 @@
 </div>
 
 <button class="btn btn-primary">Save</button>
-
+<a href="{{ $tag->exists ? route('tags.notes.index', $tag) : route('notes.index') }}"
+  class="btn btn-secondary">Back</a>

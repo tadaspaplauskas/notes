@@ -10,7 +10,6 @@
 
           <form action="{{ route('notes.store') }}" method="POST">
             @include('notes.form')
-            <a href="{{ url()->previous() }}" class="btn btn-secondary">Back to list</a>
           </form>
 
         </div>

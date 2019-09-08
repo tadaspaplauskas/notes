@@ -11,7 +11,6 @@
         <form action="{{ route('notes.update', $note) }}" method="POST">
           @method('PUT')
           @include('notes.form')
-          <a href="{{ url()->previous() }}" class="btn btn-secondary">Back to list</a>
         </form>
 
         </div>

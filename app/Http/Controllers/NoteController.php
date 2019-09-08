@@ -22,13 +22,14 @@ class NoteController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create(Request $request, Tag $tag)
     {
         $tags = $request->user()->tags;
 
         return view('notes.create', [
-            'tags' => $tags,
+            'availableTags' => $tags,
             'note' => new Note,
+            'tag' => $tag,
         ]);
     }
 
@@ -60,8 +61,9 @@ class NoteController extends Controller
         $tags = $request->user()->tags;
 
         return view('notes.edit', [
-            'tags' => $tags,
+            'availableTags' => $tags,
             'note' => $note,
+            'tag' => $note->tag,
         ]);
     }
 

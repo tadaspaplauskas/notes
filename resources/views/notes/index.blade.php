@@ -17,7 +17,7 @@
 
         <a
           href="{{ $selectedTag->getKey() === $tag->getKey() ?
-            route('notes.index') : route('tags.notes', $tag) }}"
+            route('notes.index') : route('tags.notes.index', $tag) }}"
 
           class="list-group-item d-flex justify-content-between align-items-center
             {{ $selectedTag->getKey() === $tag->getKey() ? 'active' : '' }}">
@@ -42,7 +42,8 @@
 
     <h2>
       Notes
-      <a href="{{ route('notes.create') }}" class="btn btn-light btn-sm">+ Add</a>
+      <a class="btn btn-light btn-sm"
+         href="{{ $selectedTag->exists ? route('tags.notes.create', $selectedTag) : route('notes.create') }}">+ Add</a>
     </h2>
 
     @foreach ($notes as $note)
