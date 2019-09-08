@@ -2,20 +2,20 @@
 
 <div class="form-group">
 
-  <label for="tags">Tags</label>
+  <label for="tag">Tag</label>
 
-  @error('tags')
+  @error('tag')
     <div class="alert alert-warning">{{ $message }}</div>
   @enderror
 
   <input type="text"
-    name="tags"
-    id="tags"
+    name="tag"
+    id="tag"
     autocomplete="off"
     list="available_tags"
     class="form-control"
     placeholder="Add tags"
-    value="{{ old('tags', $note->tags_string) }}"
+    value="{{ old('tags', optional($note->tag)->name) }}"
   >
 
   <datalist id="available_tags">

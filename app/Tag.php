@@ -13,6 +13,6 @@ class Tag extends Model
 
     public function notes()
     {
-        return $this->belongsToMany(Note::class, 'tag_note');
+        return $this->hasMany(Note::class);
     }
 }

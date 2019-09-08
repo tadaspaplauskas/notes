@@ -36,23 +36,18 @@ class NoteController extends Controller
     {
         $data = $request->validate([
             'content' => 'required',
-            'tags' => 'required'
+            'tag' => 'required'
         ]);
 
         $note = $request->user()->notes()->create($data);
 
-        if (isset($data['tags'])) {
-            $inputTags = explode(',', $data['tags']);
+        $tag = $request->user()->tags()->firstOrCreate(['name' => strtolower(trim($data['tag']))]);
 
-            foreach ($inputTags as $t) {
-                $tag = $request->user()->tags()->firstOrCreate(['name' => strtolower(trim($t))]);
+        $note->tag()->associate($tag);
 
-                $note->tags()->attach($tag);
-            }
-        }
+        $note->save();
 
-        return redirect()->route('notes.index')
-            ->withMessage('New note created');
+        return redirect()->route('notes.edit', $note);
     }
 
     public function show(Note $note)
@@ -60,9 +55,14 @@ class NoteController extends Controller
         //
     }
 
-    public function edit(Note $note)
+    public function edit(Request $request, Note $note)
     {
-        //
+        $tags = $request->user()->tags;
+
+        return view('notes.edit', [
+            'tags' => $tags,
+            'note' => $note,
+        ]);
     }
 
     /**
@@ -76,22 +76,18 @@ class NoteController extends Controller
     {
         $data = $request->validate([
             'content' => 'required',
-            'tags' => ''
+            'tag' => 'required'
         ]);
 
-        $note->update($data);
+        $note->fill($data);
 
-        if (isset($data['tags'])) {
-            $inputTags = explode(',', $data['tags']);
+        $tag = $request->user()->tags()->firstOrCreate(['name' => strtolower(trim($data['tag']))]);
 
-            foreach ($inputTags as $t) {
-                $tag = $request->user()->tags()->firstOrCreate(['name' => strtolower(trim($t))]);
+        $note->tag()->associate($tag);
 
-                $note->tags()->attach($tag);
-            }
-        }
+        $note->save();
 
-        return new NoteResource($note);
+        return redirect()->back();
     }
 
     public function delete(Note $note)

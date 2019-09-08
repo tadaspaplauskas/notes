@@ -6,7 +6,6 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header">Add a note</div>
-
         <div class="card-body">
 
           <form action="{{ route('notes.store') }}" method="POST">

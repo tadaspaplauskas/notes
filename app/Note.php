@@ -14,9 +14,9 @@ class Note extends Model
         'content',
     ];
 
-    public function tags()
+    public function tag()
     {
-        return $this->belongsToMany(Tag::class, 'tag_note');
+        return $this->belongsTo(Tag::class);
     }
 
     public function getHtmlAttribute()
@@ -27,10 +27,5 @@ class Note extends Model
         ]);
 
         return $converter->convertToHtml($this->content);
-    }
-
-    public function getTagsStringAttribute()
-    {
-        return $this->tags->pluck('name')->implode(', ');
     }
 }
