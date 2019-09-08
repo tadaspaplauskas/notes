@@ -49,11 +49,11 @@
 
       <div class="row" title="{{ 'Updated ' .  $note->updated_at }}">
 
-        <div class="col" style="max-width: 40rem; margin-bottom: 1rem;">
+        <div class="col">
           {!! $note->html !!}
         </div>
 
-        <div class="col-1 small text-right">
+        <div class="col-2 small text-right">
           <a href="{{ route('notes.edit', $note) }}">
             Edit
           </a>
