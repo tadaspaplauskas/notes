@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Note;
+use App\Tag;
 use Illuminate\Http\Request;
-use Auth;
 use App\Http\Resources\NoteResource;
 
 class NoteController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, Tag $tag)
     {
-        $notes = $request->user()->notes;
+        $notes = $tag ? $tag->notes : $request->user()->notes;
+
         $tags = $request->user()->tags()->withCount('notes')->get();
 
         return view('notes.index', [
             'notes' => $notes,
             'tags' => $tags,
+            'selectedTag' => $tag ?? new Tag,
         ]);
     }
 

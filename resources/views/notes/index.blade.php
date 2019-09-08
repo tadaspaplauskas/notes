@@ -15,12 +15,14 @@
 
       @foreach ($tags as $tag)
 
-        <button type="button" class="list-group-item d-flex justify-content-between align-items-center {{-- active --}}">
+        <a href="{{ route('tags.notes', $tag) }}"
+        class="list-group-item d-flex justify-content-between align-items-center
+         {{ $selectedTag->getKey() === $tag->getKey() ? 'active' : '' }}">
           {{ $tag->name }}
           <span class="badge badge-primary badge-pill {{-- bg-white --}} {{-- text-primary --}}">
             {{ $tag->notes_count }}
           </span>
-        </button>
+        </a>
 
       @endforeach
 
