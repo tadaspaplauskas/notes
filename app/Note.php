@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use League\CommonMark\CommonMarkConverter;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Note extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'content',
     ];

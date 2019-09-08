@@ -22,8 +22,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::resource('notes', 'NoteController');
-    Route::resource('tags', 'TagController');
+    Route::get('notes/{note}/delete', 'NoteController@delete')->name('notes.delete');
+    Route::get('notes/{id}/restore', 'NoteController@restore')->name('notes.restore');
 
+    Route::resource('tags', 'TagController');
     Route::get('tags/{tag}/notes', 'NoteController@index')->name('tags.notes');
 
 });

@@ -58,7 +58,7 @@
             Edit
           </a>
 
-          <a href="{{ route('notes.destroy', $note) }}">
+          <a href="{{ route('notes.delete', $note) }}">
             Delete
           </a>
         </div>

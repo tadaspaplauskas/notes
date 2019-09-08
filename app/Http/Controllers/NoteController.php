@@ -93,16 +93,20 @@ class NoteController extends Controller
         return new NoteResource($note);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Note  $note
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Note $note)
+    public function delete(Note $note)
     {
         $note->delete();
 
-        return new NoteResource($note);
+        return redirect()->back()
+            ->withMessage('Deleted.
+                <a href="' . route('notes.restore', $note) . '">Undo.</a>');
+    }
+
+    public function restore(Request $request, $id)
+    {
+        $note = $request->user()->notes()->withTrashed()->find($id)->restore();
+
+        return redirect()->back()
+            ->withMessage('Restored.');
     }
 }
