@@ -22,15 +22,32 @@
 
               <label for="tags">Tags</label>
 
-              <input type="text" class="form-control" id="tags" name="tags" placeholder="Add tags" autocomplete="off">
+              <input type="text"
+                name="tags"
+                id="tags"
+                autocomplete="off"
+                list="tags"
+                class="form-control"
+                placeholder="Add tags"
+              >
+
+              <datalist id="tags">
+
+                @foreach ($tags as $tag)
+
+                  <option>{{ $tag->name }}</option>
+
+                @endforeach
+
+              </datalist>
 
             </div>
 
             <div class="form-group">
 
-              <label for="text">Text</label>
+              <label for="content">Content</label>
 
-              <textarea class="form-control" id="text" name="text" rows="3"></textarea>
+              <textarea class="form-control" name="content" id="content" rows="10"></textarea>
 
             </div>
 
@@ -38,29 +55,10 @@
 
           </form>
 
-
         </div>
       </div>
     </div>
   </div>
 </div>
 
-
-<script>
-
-  $(function () {
-    $('#tags').tagsInput({
-      // interactive: true,
-      'autocomplete': {
-        source: [
-          'notes',
-          'quotes',
-          'life',
-          'apples',
-        ]
-      }
-    });
-  });
-
-</script>
 @endsection

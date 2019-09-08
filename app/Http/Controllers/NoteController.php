@@ -12,8 +12,21 @@ class NoteController extends Controller
     public function index(Request $request)
     {
         $notes = $request->user()->notes;
+        $tags = $request->user()->tags()->withCount('notes')->get();
 
-        return NoteResource::collection($notes);
+        return view('notes.index', [
+            'notes' => $notes,
+            'tags' => $tags,
+        ]);
+    }
+
+    public function create(Request $request)
+    {
+        $tags = $request->user()->tags;
+
+        return view('notes.create', [
+            'tags' => $tags,
+        ]);
     }
 
     public function store(Request $request)
@@ -35,7 +48,8 @@ class NoteController extends Controller
             }
         }
 
-        return new NoteResource($note);
+        return redirect()->route('notes.index')
+            ->withMessage('New note created');
     }
 
     public function show(Note $note)
