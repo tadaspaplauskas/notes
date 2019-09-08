@@ -1771,14 +1771,26 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/notes').then(function (response) {
         _this.notes = response.data.data;
+
+        _this.notes.forEach(function (n) {
+          n.output = n.html;
+        });
       })["catch"](function (error) {
         console.log(error.response.data);
       });
     },
     addNote: function addNote() {
       this.notes.push({
-        content: "\n          <p>\n          </p>\n      "
+        content: ''
       });
+    },
+    editNote: function editNote(note) {
+      console.log('aa');
+      note.output = note.content;
+      var index = Object(lodash__WEBPACK_IMPORTED_MODULE_0__["findIndex"])(this.notes, function (n) {
+        return n.id === note.id;
+      });
+      Vue.set(this.notes, index, note);
     },
     saveNote: function saveNote(note, content) {
       note.content = content; // exists

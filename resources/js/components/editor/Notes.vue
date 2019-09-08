@@ -1,5 +1,5 @@
 <script>
-import {debounce, assign, find} from "lodash";
+import {assign, findIndex} from 'lodash';
 
 export default {
   data() {
@@ -17,6 +17,7 @@ export default {
       axios.get('/notes')
         .then(response => {
           this.notes = response.data.data
+          this.notes.forEach((n) => { n.output = n.html })
         })
         .catch(error => {
           console.log(error.response.data)
@@ -24,11 +25,17 @@ export default {
     },
     addNote() {
       this.notes.push({
-        content: `
-          <p>
-          </p>
-      `
+        content: ''
       })
+    },
+    editNote(note) {
+      console.log('aa')
+
+      note.output = note.content
+
+      const index = findIndex(this.notes, (n) => { return n.id === note.id })
+
+      Vue.set(this.notes, index, note)
     },
     saveNote(note, content) {
         note.content = content

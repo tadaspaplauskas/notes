@@ -45,8 +45,9 @@
             :title="'Updated ' +  note.updated_at" >
             <div class="col" contenteditable="true"
               style="max-width: 40rem; margin-bottom: 1rem;"
-              @blur="saveNote(note, $event.target.innerText, $event)"
-              v-text="note.content"
+              @blur="saveNote(note, $event.target.innerText)"
+              @focus="editNote(note)"
+              v-html="note.output"
             ></div>
 
             <div class="col-1 small text-right">
