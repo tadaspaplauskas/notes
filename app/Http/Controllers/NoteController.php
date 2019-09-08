@@ -28,6 +28,7 @@ class NoteController extends Controller
 
         return view('notes.create', [
             'tags' => $tags,
+            'note' => new Note,
         ]);
     }
 
@@ -35,7 +36,7 @@ class NoteController extends Controller
     {
         $data = $request->validate([
             'content' => 'required',
-            'tags' => ''
+            'tags' => 'required'
         ]);
 
         $note = $request->user()->notes()->create($data);

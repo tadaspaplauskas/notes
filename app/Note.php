@@ -28,4 +28,9 @@ class Note extends Model
 
         return $converter->convertToHtml($this->content);
     }
+
+    public function getTagsStringAttribute()
+    {
+        return $this->tags->pluck('name')->implode(', ');
+    }
 }

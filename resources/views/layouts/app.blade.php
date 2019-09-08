@@ -85,9 +85,9 @@
     </nav>
 
     <main class="container">
-      @if (\Session::has('message'))
+      @if (session('message'))
         <div class="alert alert-info text-center" role="alert">
-          {!! \Session::get('message') !!}
+          {!! session('message') !!}
         </div>
       @endif
 
