@@ -11,14 +11,14 @@ class NoteController extends Controller
 {
     public function index(Request $request, Tag $tag)
     {
-        $notes = $tag ? $tag->notes : $request->user()->notes;
+        $notes = $tag->exists ? $tag->notes : $request->user()->notes;
 
         $tags = $request->user()->tags()->withCount('notes')->get();
 
         return view('notes.index', [
             'notes' => $notes,
             'tags' => $tags,
-            'selectedTag' => $tag ?? new Tag,
+            'selectedTag' => $tag,
         ]);
     }
 
