@@ -20,6 +20,7 @@
         name="content"
         placeholder="Lorem ipsum..."
         class="form-control"
+        autofocus
         style="min-height: 50vh; height: 100%; resize: none;"
         >{{ old('content', $note->content) }}</textarea>
     </div>
