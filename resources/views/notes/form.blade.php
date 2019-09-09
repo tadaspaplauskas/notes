@@ -19,9 +19,8 @@
       <textarea
         name="content"
         placeholder="Lorem ipsum..."
-        class="form-control"
-        autofocus
-        style="min-height: 50vh; height: 100%; resize: none;"
+        class="form-control h-100"
+        style="min-height: 50vh; resize: none;"
         >{{ old('content', $note->content) }}</textarea>
     </div>
 
@@ -45,9 +44,14 @@
     </div>
 
     <div class="col text-right">
-      <button class="btn btn-primary">Save</button>
+      <button class="btn btn-primary"
+        accesskey="s"
+        title="ctrl + alt + s">Save</button>
+
       <a href="{{ $tag->exists ?
-          route('tags.notes.index', $tag) : route('notes.index') }}"
-        class="btn btn-secondary">Back</a>
+        route('tags.notes.index', $tag) : route('notes.index') }}"
+        class="btn btn-secondary"
+        accesskey="b"
+        title="ctrl + alt + b">Back</a>
     </div>
   </div>
