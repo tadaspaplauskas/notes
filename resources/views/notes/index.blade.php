@@ -48,7 +48,7 @@
 
     @foreach ($notes as $note)
 
-      <div class="row" title="{{ 'Updated ' .  $note->updated_at }}">
+      <div class="row" title="{{ 'Updated ' .  $note->updated_at->diffForHumans() }}">
 
         <div class="col">
           {!! $note->html !!}
