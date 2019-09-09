@@ -12,34 +12,24 @@
     </h2>
 
     <div class="list-group list-group-flush">
-
       @foreach ($tags as $tag)
-
-        <a
-          href="{{ $selectedTag->getKey() === $tag->getKey() ?
+        <a href="{{ $selectedTag->getKey() === $tag->getKey() ?
             route('notes.index') : route('tags.notes.index', $tag) }}"
-
           class="list-group-item d-flex justify-content-between align-items-center
             {{ $selectedTag->getKey() === $tag->getKey() ? 'active' : '' }}">
-
           {{ $tag->name }}
 
           <span
             class="badge badge-primary badge-pill
               {{ $selectedTag->getKey() === $tag->getKey() ? 'bg-white text-primary' : '' }}">
-
             {{ $tag->notes_count }}
-
           </span>
         </a>
-
       @endforeach
-
     </div>
   </div>
 
   <div class="col pt-2">
-
     <h2>
       Notes
       <a class="btn btn-light btn-sm"
@@ -47,13 +37,11 @@
     </h2>
 
     @foreach ($notes as $note)
-
-      <div class="row" title="{{ 'Updated ' .  $note->updated_at->diffForHumans() }}">
-
+      <div class="row border-top pt-3"
+        title="{{ 'Updated ' .  $note->updated_at->diffForHumans() }}">
         <div class="col">
           {!! $note->html !!}
         </div>
-
         <div class="col-2 small text-right">
           <a href="{{ route('notes.edit', $note) }}">
             Edit
@@ -63,9 +51,7 @@
             Delete
           </a>
         </div>
-
       </div>
-
     @endforeach
 
   </div>
