@@ -21,6 +21,10 @@ class Note extends Model
 
     public function getHtmlAttribute()
     {
+        if (empty($this->content)) {
+            return '';
+        }
+
         $converter = new CommonMarkConverter([
             'html_input' => 'strip',
             'allow_unsafe_links' => false,
