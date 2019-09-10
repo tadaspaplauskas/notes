@@ -14,6 +14,8 @@ class Note extends Model
         'content',
     ];
 
+    protected static $searchPhrase;
+
     public function tag()
     {
         return $this->belongsTo(Tag::class);
@@ -30,6 +32,21 @@ class Note extends Model
             'allow_unsafe_links' => false,
         ]);
 
-        return $converter->convertToHtml($this->content);
+        $html = $converter->convertToHtml($this->content);
+
+        $s = static::$searchPhrase;
+        if ($s) {
+            // using regex to keep case
+            $html = preg_replace('/(' . preg_quote($s) . ')/i',
+                '<span class="bg-warning">$1</span>',
+                $html);
+        }
+
+        return $html;
+    }
+
+    public static function setSearchPhrase($phrase)
+    {
+        static::$searchPhrase = $phrase;
     }
 }

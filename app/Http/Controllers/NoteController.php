@@ -15,6 +15,8 @@ class NoteController extends Controller
 
         if ($search = $request->get('search')) {
             $query->where('content', 'LIKE', '%' . $search . '%');
+
+            Note::setSearchPhrase($search);
         }
 
         $notes = $query->get();
