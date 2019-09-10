@@ -6,10 +6,19 @@
 
   <div class="col-3 pt-2">
 
-    <form class="form-inline mb-3">
-      <h2>Search</h2>
+    <h2>Search</h2>
+    <form class="form-inline mb-3" action="">
+      <div class="form-group mr-1">
+        <label for="search" class="sr-only">Search</label>
+        <input type="text"
+          class="form-control form-control-sm"
+          name="search"
+          id="search"
+          placeholder="Search"
+          value="{{ $search }}">
+      </div>
 
-
+      <button type="submit" class="btn btn-primary btn-sm">Search</button>
     </form>
 
     <h2>

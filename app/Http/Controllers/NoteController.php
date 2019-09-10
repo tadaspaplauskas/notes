@@ -11,7 +11,13 @@ class NoteController extends Controller
 {
     public function index(Request $request, Tag $tag)
     {
-        $notes = $tag->exists ? $tag->notes : $request->user()->notes;
+        $query = $tag->exists ? $tag->notes() : $request->user()->notes();
+
+        if ($search = $request->get('search')) {
+            $query->where('content', 'LIKE', '%' . $search . '%');
+        }
+
+        $notes = $query->get();
 
         $tags = $request->user()->tags()->withCount('notes')->get();
 
@@ -19,6 +25,7 @@ class NoteController extends Controller
             'notes' => $notes,
             'tags' => $tags,
             'selectedTag' => $tag,
+            'search' => $search,
         ]);
     }
 
