@@ -60,11 +60,17 @@
         <div class="col">
           {!! $note->html !!}
         </div>
-        <div class="col-2 small text-right">
+        <div class="col-2 small text-right pb-3">
+          @if ($note->tag)
+            <div>
+              <span class="badge badge-info badge-pill text-white">
+              {{ $note->tag->name }}
+              </span>
+            </div>
+          @endif
           <a href="{{ route('notes.edit', $note) }}">
             Edit
           </a>
-
           <a href="{{ route('notes.delete', $note) }}">
             Delete
           </a>

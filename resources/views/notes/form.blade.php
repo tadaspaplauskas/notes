@@ -45,7 +45,7 @@
         list="available_tags"
         class="form-control"
         placeholder="Add a tag"
-        value="{{ old('tags', $tag->name) }}">
+        value="{{ old('tags', optional($tag)->name) }}">
     </div>
 
     <div class="col text-right">
@@ -53,7 +53,7 @@
         accesskey="s"
         title="ctrl + alt + s">Save</button>
 
-      <a href="{{ $tag->exists ?
+      <a href="{{ optional($tag)->exists ?
         route('tags.notes.index', $tag) : route('notes.index') }}"
         class="btn btn-secondary"
         accesskey="b"
