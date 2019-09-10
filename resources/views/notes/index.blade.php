@@ -6,6 +6,12 @@
 
   <div class="col-3 pt-2">
 
+    <form class="form-inline mb-3">
+      <h2>Search</h2>
+
+
+    </form>
+
     <h2>
       Tags
       <button class="btn btn-light btn-sm">+ Add</button>

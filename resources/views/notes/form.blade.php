@@ -16,8 +16,11 @@
 
   <div class="row mb-3">
     <div class="{{ $note->content ? 'col-md-6' : 'col' }}">
+      <label for="content" class="sr-only">Content</label>
+
       <textarea
         name="content"
+        id="content"
         placeholder="Lorem ipsum..."
         class="form-control h-100"
         style="min-height: 50vh; resize: none;"
@@ -33,6 +36,8 @@
 
   <div class="row">
     <div class="col">
+      <label for="tag" class="sr-only">Tag</label>
+
       <input type="text"
         name="tag"
         id="tag"
