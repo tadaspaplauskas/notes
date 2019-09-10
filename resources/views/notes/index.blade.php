@@ -29,9 +29,9 @@
     <div class="list-group list-group-flush">
       @foreach ($tags as $tag)
         <a href="{{ $selectedTag->getKey() === $tag->getKey() ?
-            route('notes.index', ['search' => $search])
+            route('notes.index')
             :
-            route('tags.notes.index', ['tag' => $tag, 'search' => $search])
+            route('tags.notes.index', $tag)
           }}"
           class="list-group-item d-flex justify-content-between align-items-center
             {{ $selectedTag->getKey() === $tag->getKey() ? 'active' : '' }}">
