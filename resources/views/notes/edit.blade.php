@@ -6,7 +6,7 @@
       <div class="card">
         <div class="card-header">Edit a note</div>
         <div class="card-body">
-          <form action="{{ route('notes.update', $note) }}" method="POST">
+          <form action="{{ route('notes.update', $note) }}" method="POST" enctype="multipart/form-data">
             @method('PUT')
             @include('notes.form')
           </form>

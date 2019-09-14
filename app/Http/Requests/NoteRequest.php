@@ -26,7 +26,7 @@ class NoteRequest extends FormRequest
         return [
             'content' => 'required',
             'tag' => 'required',
-            'files.*' => 'max:10000|mimes:jpeg,bmp,png,gif,pdf,zip,txt,docx,doc,xls,xlsx,numbers,pages',
+            'uploads.*' => 'max:10000|mimes:jpeg,bmp,png,gif,pdf,zip,txt,docx,doc,xls,xlsx,numbers,pages',
         ];
     }
 }

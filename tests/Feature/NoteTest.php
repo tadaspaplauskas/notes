@@ -77,7 +77,7 @@ class NoteTest extends TestCase
     {
         Storage::fake('public');
 
-        $files = [
+        $uploads = [
             UploadedFile::fake()->image('file1.jpg'),
             UploadedFile::fake()->image('file2.jpg'),
         ];
@@ -92,12 +92,13 @@ class NoteTest extends TestCase
             ->put(route('notes.update', $note), [
                 'tag' => 'recipes',
                 'content' => $updated->content,
-                'files' => $files,
+                'uploads' => $uploads,
             ])
             ->assertRedirect();
 
-        foreach ($files as $file) {
-            Storage::disk('public')->assertExists($file->hashName());
+        foreach ($uploads as $upload) {
+            Storage::disk('public')->assertExists(
+                'uploads/' . $this->user->id . '/' . $upload->hashName());
         }
     }
 }

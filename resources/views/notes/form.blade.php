@@ -14,7 +14,11 @@
     <div class="alert alert-warning">{{ $message }}</div>
   @enderror
 
-  <div class="row mb-3">
+  @error('files')
+    <div class="alert alert-warning">{{ $message }}</div>
+  @enderror
+
+    <div class="row mb-3">
     <div class="{{ $note->content ? 'col-md-6' : 'col' }}">
       <label for="content" class="sr-only">Content</label>
 
@@ -50,7 +54,7 @@
 
       <div class="mt-3">
         <label for="files" class="sr-only">Files</label>
-        <input type="file" multiple name="files" id="files">
+        <input type="file" multiple name="uploads[]" id="files">
       </div>
 
       <div class="mt-3">

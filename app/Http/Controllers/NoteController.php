@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\NoteResource;
 use App\Http\Requests\NoteRequest;
 use Storage;
+use Auth;
 
 class NoteController extends Controller
 {
@@ -94,9 +95,9 @@ class NoteController extends Controller
 
         $note->save();
 
-        foreach ($request->get('files') ?? [] as $file) {
+        foreach ($request->uploads ?? [] as $file) {
             Storage::disk('public')
-                ->putFile('files/' . $request->user->id, $file);
+                ->putFile('uploads/' . Auth::id(), $file);
         }
 
         return redirect()->back();
