@@ -7,6 +7,7 @@ use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Resources\NoteResource;
 use App\Http\Requests\NoteRequest;
+use Storage;
 
 class NoteController extends Controller
 {
@@ -92,6 +93,10 @@ class NoteController extends Controller
         $note->tag()->associate($tag);
 
         $note->save();
+
+        foreach ($request->files as $file) {
+            Storage::disk('public')->putFile('files', $file);
+        }
 
         return redirect()->back();
     }

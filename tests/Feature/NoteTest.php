@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Storage;
 use App\User;
 use App\Note;
 
@@ -69,5 +71,33 @@ class NoteTest extends TestCase
             ->assertRedirect();
 
         $this->assertTrue($this->user->notes()->where('content', $updated->content)->exists());
+    }
+
+    public function testUploadFiles()
+    {
+        Storage::fake('public');
+
+        $files = [
+            UploadedFile::fake()->image('file1.jpg'),
+            UploadedFile::fake()->image('file2.jpg'),
+        ];
+
+        $note = factory(Note::class)->create([
+            'user_id' => $this->user->id,
+        ]);
+
+        $updated = factory(Note::class)->make();
+
+        $response = $this->actingAs($this->user)
+            ->put(route('notes.update', $note), [
+                'tag' => 'recipes',
+                'content' => $updated->content,
+                'files' => $files,
+            ])
+            ->assertRedirect();
+
+        foreach ($files as $file) {
+            Storage::disk('public')->assertExists($file->hashName());
+        }
     }
 }
