@@ -99,6 +99,8 @@ class NoteTest extends TestCase
         foreach ($uploads as $upload) {
             Storage::disk('public')->assertExists(
                 'uploads/' . $this->user->id . '/' . $upload->hashName());
+
+            dd($upload->name());
         }
     }
 }
