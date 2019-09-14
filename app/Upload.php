@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Storage;
 
 class Upload extends Model
 {
@@ -16,4 +17,9 @@ class Upload extends Model
     protected $casts = [
         'is_image' => 'boolean',
     ];
+
+    public function getUrlAttribute()
+    {
+        return Storage::disk('public')->url($this->path);
+    }
 }

@@ -34,6 +34,17 @@
     @if ($note->content)
       <div class="col-md-6">
         {!! $note->html !!}
+
+        @foreach ($note->uploads as $upload)
+          <a href="{{ $upload->url }}">
+            @if ($upload->is_image)
+              <img src="{{ $upload->url }}" title="{{ $upload->name }}"
+                class="img-fluid img-thumbnail" style="height: 10rem"">
+            @else
+              {{ $upload->name }}
+            @endif
+          </a>
+        @endforeach
       </div>
     @endif
   </div>
@@ -54,7 +65,7 @@
 
       <div class="mt-3">
         <label for="files" class="sr-only">Files</label>
-        <input type="file" multiple name="uploads[]" id="files">
+        <input type="file" multiple name="uploads[]" id="files" class="w-100">
       </div>
 
       <div class="mt-3">
