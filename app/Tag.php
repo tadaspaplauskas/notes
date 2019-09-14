@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Str;
 
 class Tag extends Model
 {
@@ -14,5 +15,11 @@ class Tag extends Model
     public function notes()
     {
         return $this->hasMany(Note::class);
+    }
+
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = Str::kebab($value);
     }
 }

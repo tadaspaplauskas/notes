@@ -6,6 +6,7 @@ use App\Note;
 use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Resources\NoteResource;
+use App\Http\Requests\NoteRequest;
 
 class NoteController extends Controller
 {
@@ -42,16 +43,13 @@ class NoteController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(NoteRequest $request)
     {
-        $data = $request->validate([
-            'content' => 'required',
-            'tag' => 'required'
+        $note = $request->user()->notes()->create($request->all());
+
+        $tag = $request->user()->tags()->firstOrCreate([
+            'name' => $request->get('tag'),
         ]);
-
-        $note = $request->user()->notes()->create($data);
-
-        $tag = $request->user()->tags()->firstOrCreate(['name' => strtolower(trim($data['tag']))]);
 
         $note->tag()->associate($tag);
 
@@ -83,16 +81,13 @@ class NoteController extends Controller
      * @param  \App\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Note $note)
+    public function update(NoteRequest $request, Note $note)
     {
-        $data = $request->validate([
-            'content' => 'required',
-            'tag' => 'required'
+        $note->fill($request->all());
+
+        $tag = $request->user()->tags()->firstOrCreate([
+            'name' => $request->get('tag'),
         ]);
-
-        $note->fill($data);
-
-        $tag = $request->user()->tags()->firstOrCreate(['name' => strtolower(trim($data['tag']))]);
 
         $note->tag()->associate($tag);
 

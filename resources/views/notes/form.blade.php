@@ -35,28 +35,34 @@
   </div>
 
   <div class="row">
-    <div class="col">
-      <label for="tag" class="sr-only">Tag</label>
+    <div class="col-6">
+      <div>
+        <label for="tag" class="sr-only">Tag</label>
+        <input type="text"
+          name="tag"
+          id="tag"
+          autocomplete="off"
+          list="available_tags"
+          class="form-control"
+          placeholder="Add a tag"
+          value="{{ old('tags', optional($tag)->name) }}">
+      </div>
 
-      <input type="text"
-        name="tag"
-        id="tag"
-        autocomplete="off"
-        list="available_tags"
-        class="form-control"
-        placeholder="Add a tag"
-        value="{{ old('tags', optional($tag)->name) }}">
-    </div>
+      <div class="mt-3">
+        <label for="files" class="sr-only">Files</label>
+        <input type="file" multiple name="files" id="files">
+      </div>
 
-    <div class="col text-right">
-      <button class="btn btn-primary"
-        accesskey="s"
-        title="ctrl + alt + s">Save</button>
+      <div class="mt-3">
+        <button class="btn btn-primary"
+            accesskey="s"
+            title="ctrl + alt + s">Save</button>
 
-      <a href="{{ optional($tag)->exists ?
-        route('tags.notes.index', $tag) : route('notes.index') }}"
-        class="btn btn-secondary"
-        accesskey="b"
-        title="ctrl + alt + b">Back</a>
-    </div>
+          <a href="{{ optional($tag)->exists ?
+            route('tags.notes.index', $tag) : route('notes.index') }}"
+            class="btn btn-secondary"
+            accesskey="b"
+            title="ctrl + alt + b">Back</a>
+      </div>
   </div>
+</div>
