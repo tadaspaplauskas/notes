@@ -97,10 +97,15 @@ class NoteTest extends TestCase
             ->assertRedirect();
 
         foreach ($uploads as $upload) {
-            Storage::disk('public')->assertExists(
-                'uploads/' . $this->user->id . '/' . $upload->hashName());
+            $path = 'uploads/' . $this->user->id . '/' . $upload->hashName();
 
-            dd($upload->name());
+            Storage::disk('public')->assertExists($path);
+
+            $this->assertTrue($note->uploads()
+                ->where('path', $path)
+                ->where('name', $upload->getClientOriginalName())
+                ->where('is_image', 1)
+                ->exists());
         }
     }
 }

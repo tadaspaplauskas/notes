@@ -21,6 +21,11 @@ class Note extends Model
         return $this->belongsTo(Tag::class);
     }
 
+    public function uploads()
+    {
+        return $this->hasMany(Upload::class);
+    }
+
     public function getHtmlAttribute()
     {
         if (empty($this->content)) {

@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Note;
 use App\Tag;
+use App\Upload;
 use Illuminate\Http\Request;
 use App\Http\Resources\NoteResource;
 use App\Http\Requests\NoteRequest;
 use Storage;
 use Auth;
+use Str;
 
 class NoteController extends Controller
 {
@@ -95,9 +97,16 @@ class NoteController extends Controller
 
         $note->save();
 
-        foreach ($request->uploads ?? [] as $file) {
-            Storage::disk('public')
-                ->putFile('uploads/' . Auth::id(), $file);
+        foreach ($request->uploads ?? [] as $upload) {
+            $path = Storage::disk('public')
+                ->putFile('uploads/' . Auth::id(), $upload);
+
+            $note->uploads()->create([
+                'path' => $path,
+                'name' => $upload->getClientOriginalName(),
+                'size' => $upload->getSize(),
+                'is_image' => Str::startsWith($upload->getMimeType(), 'image/'),
+            ]);
         }
 
         return redirect()->back();
