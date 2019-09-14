@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Api;
+namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -13,7 +13,6 @@ class NoteTest extends TestCase
     use RefreshDatabase, WithFaker;
 
     public $user;
-    public $account;
 
     public function setUp():void
     {
@@ -43,19 +42,15 @@ class NoteTest extends TestCase
 
         $response = $this->actingAs($this->user)
             ->post(route('notes.store'), [
-                'tags' => 'recipes,quotes',
+                'tag' => 'recipes',
                 'content' => $note->content,
             ])
-            ->assertStatus(201);
+            ->assertRedirect();
 
         $note = $this->user->notes()->where('content', $note->content)->first();
 
         $this->assertNotNull($note);
-
-        $tags = $note->tags->pluck('name');
-
-        $this->assertTrue($tags->contains('recipes'));
-        $this->assertTrue($tags->contains('quotes'));
+        $this->assertTrue($note->tag->name === 'recipes');
     }
 
     public function testUpdateNote()
@@ -68,12 +63,11 @@ class NoteTest extends TestCase
 
         $response = $this->actingAs($this->user)
             ->put(route('notes.update', $note), [
+                'tag' => 'recipes',
                 'content' => $updated->content,
             ])
-            ->assertStatus(200);
+            ->assertRedirect();
 
-        $note = $this->user->notes()->where('content', $updated->content)->first();
-
-        $this->assertNotNull($note);
+        $this->assertTrue($this->user->notes()->where('content', $updated->content)->exists());
     }
 }
