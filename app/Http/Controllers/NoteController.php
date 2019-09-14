@@ -95,7 +95,8 @@ class NoteController extends Controller
         $note->save();
 
         foreach ($request->get('files') ?? [] as $file) {
-            Storage::disk('public')->putFile('files', $file);
+            Storage::disk('public')
+                ->putFile('files/' . $request->user->id, $file);
         }
 
         return redirect()->back();
