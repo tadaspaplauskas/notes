@@ -72,4 +72,36 @@ class NoteTest extends TestCase
 
         $this->assertTrue($this->user->notes()->where('content', $updated->content)->exists());
     }
+
+    public function testDeleteNote()
+    {
+        $note = factory(Note::class)->create([
+            'user_id' => $this->user->id,
+        ]);
+
+        $response = $this->actingAs($this->user)
+            ->get(route('notes.delete', $note))
+            ->assertRedirect();
+
+        $this->assertSoftDeleted('notes', [
+            'id' => $note->id,
+        ]);
+    }
+
+    public function testRestoreNote()
+    {
+        $note = factory(Note::class)->create([
+            'user_id' => $this->user->id,
+        ]);
+
+        $note->delete();
+
+        $response = $this->actingAs($this->user)
+            ->get(route('notes.restore', $note))
+            ->assertRedirect();
+
+        $this->assertDatabaseHas('notes', [
+            'id' => $note->id,
+        ]);
+    }
 }
