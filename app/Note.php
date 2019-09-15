@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use League\CommonMark\CommonMarkConverter;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Model;
 
 class Note extends Model
 {
@@ -16,7 +16,7 @@ class Note extends Model
 
     protected static $searchPhrase;
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 

@@ -14,9 +14,9 @@ class CreateNotesTable extends Migration
     public function up()
     {
         Schema::create('notes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('tag_id')->unsigned()->nullable();
+            $table->uuid('id')->primary();
+            $table->uuid('user_id')->index();
+            $table->uuid('tag_id')->nullable()->index();
             $table->text('content');
             $table->timestamps();
             $table->softDeletes();
