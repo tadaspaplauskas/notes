@@ -16,6 +16,17 @@ class Note extends Model
 
     protected static $searchPhrase;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function (Note $model) {
+            if ($model->forceDeleting) {
+                $model->uploads->each(function($u) { $u->forceDelete(); });
+            }
+        });
+    }
+
     public function tag()
     {
         return $this->belongsTo(Tag::class);
@@ -54,11 +65,5 @@ class Note extends Model
     {
         static::$searchPhrase = $phrase;
     }
-
-    public function forceDelete()
-    {
-        $this->uploads->each(function($u) { $u->forceDelete(); });
-
-        return parent::forceDelete();
-    }
 }
+

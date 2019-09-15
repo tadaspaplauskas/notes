@@ -21,15 +21,19 @@ class Upload extends Model
         'is_image' => 'boolean',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function (Upload $model) {
+            if ($model->forceDeleting) {
+                Storage::delete($model->path);
+            }
+        });
+    }
+
     public function getUrlAttribute()
     {
         return Storage::disk('public')->url($this->path);
-    }
-
-    public function forceDelete()
-    {
-        Storage::disk('public')->delete($this->path);
-
-        return parent::forceDelete();
     }
 }

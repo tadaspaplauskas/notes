@@ -24,11 +24,6 @@ class UploadTest extends TestCase
         $this->user = factory(User::class)->create();
     }
 
-    private function filePath(UploadedFile $file)
-    {
-        return 'uploads/' . $this->user->id . '/' . $file->hashName();
-    }
-
     public function testUploadFiles()
     {
         Storage::fake('public');
@@ -51,10 +46,10 @@ class UploadTest extends TestCase
             ->assertRedirect();
 
         foreach ($uploads as $upload) {
-            Storage::disk('public')->assertExists($this->filePath($upload));
+            Storage::disk('public')->assertExists($this->uploadPath($upload));
 
             $this->assertTrue($note->uploads()
-                ->where('path', $this->filePath($upload))
+                ->where('path', $this->uploadPath($upload))
                 ->where('name', $upload->getClientOriginalName())
                 ->where('is_image', 1)
                 ->exists());
@@ -68,21 +63,21 @@ class UploadTest extends TestCase
         $uploadedFile = UploadedFile::fake()->image('file1.jpg');
 
         Storage::disk('public')
-            ->putFile($this->filePath($uploadedFile), $uploadedFile);
+            ->putFile($this->uploadPath($uploadedFile), $uploadedFile);
 
         $note = factory(Note::class)->create([
             'user_id' => $this->user->id,
         ]);
 
         $upload = $note->uploads()->save(factory(Upload::class)->make([
-            'path' => $this->filePath($uploadedFile),
+            'path' => $this->uploadPath($uploadedFile),
         ]));
 
         $response = $this->actingAs($this->user)
             ->get(route('uploads.delete', $upload))
             ->assertRedirect();
 
-        Storage::disk('public')->assertExists($this->filePath($uploadedFile));
+        Storage::disk('public')->assertExists($this->uploadPath($uploadedFile));
 
         $this->assertSoftDeleted('uploads', [
             'id' => $upload->id,
@@ -96,14 +91,14 @@ class UploadTest extends TestCase
         $uploadedFile = UploadedFile::fake()->image('file1.jpg');
 
         Storage::disk('public')
-            ->putFile($this->filePath($uploadedFile), $uploadedFile);
+            ->putFile($this->uploadPath($uploadedFile), $uploadedFile);
 
         $note = factory(Note::class)->create([
             'user_id' => $this->user->id,
         ]);
 
         $upload = $note->uploads()->save(factory(Upload::class)->make([
-            'path' => $this->filePath($uploadedFile),
+            'path' => $this->uploadPath($uploadedFile),
         ]));
 
         $upload->delete();
@@ -112,7 +107,7 @@ class UploadTest extends TestCase
             ->get(route('uploads.restore', $upload))
             ->assertRedirect();
 
-        Storage::disk('public')->assertExists($this->filePath($uploadedFile));
+        Storage::disk('public')->assertExists($this->uploadPath($uploadedFile));
 
         $this->assertDatabaseHas('uploads', [
             'id' => $upload->id,
