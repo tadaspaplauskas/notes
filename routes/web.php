@@ -29,4 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('tags/{tag}/notes', 'NoteController@index')->name('tags.notes.index');
     Route::get('tags/{tag}/notes/create', 'NoteController@create')->name('tags.notes.create');
 
+    Route::get('uploads/{id}/delete', 'UploadController@delete')->name('uploads.delete');
+    Route::get('files/{id}/restore', 'UploadController@restore')->name('uploads.restore');
+
 });

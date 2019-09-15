@@ -21,6 +21,7 @@ class CreateUploadsTable extends Migration
             $table->integer('size');
             $table->boolean('is_image');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

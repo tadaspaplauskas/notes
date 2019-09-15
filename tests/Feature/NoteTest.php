@@ -72,40 +72,4 @@ class NoteTest extends TestCase
 
         $this->assertTrue($this->user->notes()->where('content', $updated->content)->exists());
     }
-
-    public function testUploadFiles()
-    {
-        Storage::fake('public');
-
-        $uploads = [
-            UploadedFile::fake()->image('file1.jpg'),
-            UploadedFile::fake()->image('file2.jpg'),
-        ];
-
-        $note = factory(Note::class)->create([
-            'user_id' => $this->user->id,
-        ]);
-
-        $updated = factory(Note::class)->make();
-
-        $response = $this->actingAs($this->user)
-            ->put(route('notes.update', $note), [
-                'tag' => 'recipes',
-                'content' => $updated->content,
-                'uploads' => $uploads,
-            ])
-            ->assertRedirect();
-
-        foreach ($uploads as $upload) {
-            $path = 'uploads/' . $this->user->id . '/' . $upload->hashName();
-
-            Storage::disk('public')->assertExists($path);
-
-            $this->assertTrue($note->uploads()
-                ->where('path', $path)
-                ->where('name', $upload->getClientOriginalName())
-                ->where('is_image', 1)
-                ->exists());
-        }
-    }
 }

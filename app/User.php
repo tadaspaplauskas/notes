@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tag::class);
     }
+
+    public function uploads()
+    {
+        return $this->hasManyThrough(Upload::class, Note::class);
+    }
 }

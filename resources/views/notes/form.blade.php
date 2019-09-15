@@ -37,7 +37,7 @@
 
         @foreach ($note->uploads as $upload)
         <div class="d-inline-block img-thumbnail m-1">
-          <a href="" class="close mx-2" aria-label="Delete" title="Delete file">
+          <a href="{{ route('uploads.delete', $upload) }}" class="close mx-2" aria-label="Delete" title="Delete file">
             <span aria-hidden="true">&times;</span>
           </a>
 
