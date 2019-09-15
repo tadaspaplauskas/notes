@@ -25,6 +25,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command(\App\Console\Commands\CleanupNotes::class)->everyMinute();
+
+        $schedule->command(\App\Console\Commands\CleanupUploads::class)->everyMinute();
     }
 
     /**
