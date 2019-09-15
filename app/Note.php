@@ -54,4 +54,11 @@ class Note extends Model
     {
         static::$searchPhrase = $phrase;
     }
+
+    public function forceDelete()
+    {
+        $this->uploads->each(function($u) { $u->forceDelete(); });
+
+        return parent::forceDelete();
+    }
 }

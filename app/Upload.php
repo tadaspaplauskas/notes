@@ -25,4 +25,11 @@ class Upload extends Model
     {
         return Storage::disk('public')->url($this->path);
     }
+
+    public function forceDelete()
+    {
+        Storage::disk('public')->delete($this->path);
+
+        return parent::forceDelete();
+    }
 }
