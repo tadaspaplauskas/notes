@@ -14,8 +14,10 @@ use Str;
 
 class NoteController extends Controller
 {
-    public function index(Request $request, Tag $tag)
+    public function index(Request $request, $tagId = null)
     {
+        $tag = $tagId ? $request->user()->tags()->findOrFail($tagId) : new Tag;
+
         $query = $tag->exists ? $tag->notes() : $request->user()->notes();
 
         if ($search = $request->get('search')) {
@@ -36,8 +38,10 @@ class NoteController extends Controller
         ]);
     }
 
-    public function create(Request $request, Tag $tag)
+    public function create(Request $request, $tagId)
     {
+        $tag = $request->user()->tags()->findOrFail($tagId);
+
         $tags = $request->user()->tags;
 
         return view('notes.create', [
@@ -62,13 +66,15 @@ class NoteController extends Controller
         return redirect()->route('notes.edit', $note);
     }
 
-    public function show(Note $note)
+    public function show($id)
     {
         //
     }
 
-    public function edit(Request $request, Note $note)
+    public function edit(Request $request, $id)
     {
+        $note = $request->user()->notes()->findOrFail($id);
+
         $tags = $request->user()->tags;
 
         return view('notes.edit', [
@@ -85,8 +91,10 @@ class NoteController extends Controller
      * @param  \App\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function update(NoteRequest $request, Note $note)
+    public function update(NoteRequest $request, $id)
     {
+        $note = $request->user()->notes()->findOrFail($id);
+
         $note->fill($request->all());
 
         $tag = $request->user()->tags()->firstOrCreate([
@@ -112,8 +120,10 @@ class NoteController extends Controller
         return redirect()->back();
     }
 
-    public function delete(Note $note)
+    public function delete(Request $request, $id)
     {
+        $note = $request->user()->notes()->findOrFail($id);
+
         $note->delete();
 
         return redirect()->back()
@@ -123,7 +133,7 @@ class NoteController extends Controller
 
     public function restore(Request $request, $id)
     {
-        $note = $request->user()->notes()->withTrashed()->find($id)->restore();
+        $note = $request->user()->notes()->withTrashed()->findOrFail($id)->restore();
 
         return redirect()->back()
             ->withMessage('Restored.');
