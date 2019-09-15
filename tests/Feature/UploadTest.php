@@ -46,7 +46,7 @@ class UploadTest extends TestCase
             ->assertRedirect();
 
         foreach ($uploads as $upload) {
-            Storage::disk('public')->assertExists($this->uploadPath($upload));
+            Storage::assertExists($this->uploadPath($upload));
 
             $this->assertTrue($note->uploads()
                 ->where('path', $this->uploadPath($upload))
@@ -77,7 +77,7 @@ class UploadTest extends TestCase
             ->get(route('uploads.delete', $upload))
             ->assertRedirect();
 
-        Storage::disk('public')->assertExists($this->uploadPath($uploadedFile));
+        Storage::assertExists($this->uploadPath($uploadedFile));
 
         $this->assertSoftDeleted('uploads', [
             'id' => $upload->id,
@@ -107,7 +107,7 @@ class UploadTest extends TestCase
             ->get(route('uploads.restore', $upload))
             ->assertRedirect();
 
-        Storage::disk('public')->assertExists($this->uploadPath($uploadedFile));
+        Storage::assertExists($this->uploadPath($uploadedFile));
 
         $this->assertDatabaseHas('uploads', [
             'id' => $upload->id,

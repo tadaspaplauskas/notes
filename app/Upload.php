@@ -34,6 +34,6 @@ class Upload extends Model
 
     public function getUrlAttribute()
     {
-        return Storage::disk('public')->url($this->path);
+        return Storage::url($this->path);
     }
 }
