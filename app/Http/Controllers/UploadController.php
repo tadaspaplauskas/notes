@@ -7,6 +7,15 @@ use App\Upload;
 
 class UploadController extends Controller
 {
+    public function index(Request $request)
+    {
+        $uploads = $request->user()->uploads()->with('note')->latest()->get();
+
+        return view('uploads.index', [
+            'uploads' => $uploads,
+        ]);
+    }
+
     public function delete(Request $request, $id)
     {
         $upload = $request->user()->uploads()->findOrFail($id);

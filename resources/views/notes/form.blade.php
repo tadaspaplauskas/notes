@@ -49,8 +49,6 @@
               {{ $upload->name }}
             @endif
           </a>
-
-
         </div>
         @endforeach
       </div>

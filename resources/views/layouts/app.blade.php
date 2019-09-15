@@ -37,7 +37,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">{{ __('All files') }}</a>
+              <a class="nav-link" href="{{ route('uploads.index') }}">{{ __('Uploads') }}</a>
             </li>
 
             <li class="nav-item">

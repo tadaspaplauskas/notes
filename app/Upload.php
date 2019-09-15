@@ -36,4 +36,10 @@ class Upload extends Model
     {
         return Storage::url($this->path);
     }
+
+    public function note()
+    {
+        return $this->belongsTo(Note::class);
+    }
 }
+
