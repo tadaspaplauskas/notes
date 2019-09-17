@@ -48,15 +48,17 @@
     <h2>
       Notes {{ $selectedTag->exists ? ' about ' . $selectedTag->name : '' }}
 
-      <a class="btn btn-light btn-sm float-right"
-        href="{{ $selectedTag->exists ? route('tags.notes.create', $selectedTag) : route('notes.create') }}">+ Add
-      </a>
-
-      @if ($selectedTag->exists)
-        <a class="btn btn-light btn-sm float-right mr-1" href="{{ route('tags.edit', $selectedTag) }}">
-          Manage tag
-        </a>
+      <span class="float-right">
+        @if ($selectedTag->exists)
+          <a class="btn btn-light btn-sm" href="{{ route('tags.edit', $selectedTag) }}">
+            Manage tag
+          </a>
         @endif
+
+        <a class="btn btn-light btn-sm"
+          href="{{ $selectedTag->exists ? route('tags.notes.create', $selectedTag) : route('notes.create') }}">+ Add
+        </a>
+      </span>
     </h2>
 
     @foreach ($notes as $note)

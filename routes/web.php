@@ -25,7 +25,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('notes/{id}/delete', 'NoteController@delete')->name('notes.delete');
     Route::get('notes/{id}/restore', 'NoteController@restore')->name('notes.restore');
 
-    Route::resource('tags', 'TagController');
+    Route::resource('tags', 'TagController')
+        ->only(['edit', 'update', 'delete', 'destroy']);
+
     Route::get('tags/{id}/notes', 'NoteController@index')->name('tags.notes.index');
     Route::get('tags/{id}/notes/create', 'NoteController@create')->name('tags.notes.create');
 
