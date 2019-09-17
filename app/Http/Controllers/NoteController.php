@@ -38,7 +38,7 @@ class NoteController extends Controller
         ]);
     }
 
-    public function create(Request $request, $tagId)
+    public function create(Request $request, $tagId = null)
     {
         $tag = $request->user()->tags()->findOrFail($tagId);
 
