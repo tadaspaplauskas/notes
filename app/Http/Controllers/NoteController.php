@@ -40,7 +40,7 @@ class NoteController extends Controller
 
     public function create(Request $request, $tagId = null)
     {
-        $tag = $request->user()->tags()->findOrFail($tagId);
+        $tag = $tagId ? $request->user()->tags()->findOrFail($tagId) : new Tag;
 
         $tags = $request->user()->tags;
 

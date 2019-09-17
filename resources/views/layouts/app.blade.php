@@ -40,10 +40,6 @@
               <a class="nav-link" href="{{ route('uploads.index') }}">{{ __('Uploads') }}</a>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('tags.index') }}">{{ __('Tags') }}</a>
-            </li>
-
 {{--             <li class="nav-item">
               <a class="nav-link" href="{{ route('login') }}">{{ __('Public page') }}</a>
             </li> --}}
