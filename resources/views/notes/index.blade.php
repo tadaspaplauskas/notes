@@ -21,10 +21,7 @@
       <button type="submit" class="btn btn-primary btn-sm">Search</button>
     </form>
 
-    <h2>
-      Tags
-      <button class="btn btn-light btn-sm">+ Add</button>
-    </h2>
+    <h2>Tags</h2>
 
     <div class="list-group list-group-flush">
       @foreach ($tags as $tag)
@@ -49,9 +46,17 @@
 
   <div class="col pt-2">
     <h2>
-      Notes
-      <a class="btn btn-light btn-sm"
-         href="{{ $selectedTag->exists ? route('tags.notes.create', $selectedTag) : route('notes.create') }}">+ Add</a>
+      Notes {{ $selectedTag->exists ? ' about ' . $selectedTag->name : '' }}
+
+      <a class="btn btn-light btn-sm float-right"
+        href="{{ $selectedTag->exists ? route('tags.notes.create', $selectedTag) : route('notes.create') }}">+ Add
+      </a>
+
+      @if ($selectedTag->exists)
+        <a class="btn btn-light btn-sm float-right" href="{{ route('tags.edit', $selectedTag) }}">
+          Manage tag
+        </a>
+        @endif
     </h2>
 
     @foreach ($notes as $note)
