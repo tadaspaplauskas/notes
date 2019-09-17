@@ -53,7 +53,7 @@
       </a>
 
       @if ($selectedTag->exists)
-        <a class="btn btn-light btn-sm float-right" href="{{ route('tags.edit', $selectedTag) }}">
+        <a class="btn btn-light btn-sm float-right mr-1" href="{{ route('tags.edit', $selectedTag) }}">
           Manage tag
         </a>
         @endif
