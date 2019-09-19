@@ -26,7 +26,7 @@ class NoteController extends Controller
             Note::setSearchPhrase($search);
         }
 
-        $notes = $query->get();
+        $notes = $query->latest()->get();
 
         $tags = $request->user()->tags()->withCount('notes')->get();
 

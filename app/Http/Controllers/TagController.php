@@ -7,79 +7,82 @@ use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
     public function show(Tag $tag)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tag $tag)
+    public function edit(Request $request, $id)
     {
-        //
+        $tag = $request->user()->tags()->findOrFail($id);
+
+        $tags = $request->user()->tags;
+
+        return view('tags.edit', [
+            'tag' => $tag,
+            'tags' => $tags,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Tag $tag)
+    public function update(Request $request, $id)
     {
-        //
+        $tag = $request->user()->tags()->findOrFail($id);
+
+        $request->validate([
+            'new_name' => 'required',
+        ]);
+
+        $tag->name = $request->input('new_name');
+        $tag->save();
+
+        return redirect()->route('tags.notes.index', $tag)
+            ->withMessage('Tag was renamed');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Tag $tag)
+    public function destroy(Request $request, $id)
     {
-        //
+        $tag = $request->user()->tags()->findOrFail($id);
+
+        $request->user()->notes()
+            ->where('tag_id', $tag->id)
+            ->update(['tag_id' => null]);
+
+        $tag->delete();
+
+        return redirect()->route('notes.index')
+            ->withMessage('Tag was deleted');
+    }
+
+    public function move(Request $request, $id)
+    {
+        $tag = $request->user()->tags()->findOrFail($id);
+
+        $request->validate([
+            'new_tag' => 'required|exists:tags,id',
+        ]);
+
+        $newTag = $request->user()->tags()->findOrFail($request->input('new_tag'));
+
+        $request->user()->notes()
+            ->where('tag_id', $tag->id)
+            ->update(['tag_id' => $newTag->id]);
+
+        return redirect()->route('tags.notes.index', $tag)
+            ->withMessage('Tag ' . $tag->name . ' were moved');
     }
 }
