@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Note;
 
-class PerformanceTest extends TestCase
+class PerformanceBenchmark extends TestCase
 {
     use RefreshDatabase;
 
@@ -18,7 +18,6 @@ class PerformanceTest extends TestCase
      */
     public function testDBPerformance()
     {
-        $this->markTestSkipped();
         factory(Note::class, 10000)->create(['user_id' => '70E2E8DE-500E-4630-B3CB-166131D35C21']);
 
         $theOne = factory(Note::class)->create(['user_id' => '70E2E8DE-500E-4630-B3CB-166131D35C21']);
