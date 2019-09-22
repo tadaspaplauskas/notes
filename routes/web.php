@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return \Auth::check() ?
+        redirect()->route('notes.index') : redirect('/login');
 });
 
 Auth::routes();
