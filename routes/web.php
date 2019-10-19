@@ -37,4 +37,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('uploads/{id}/delete', 'UploadController@delete')->name('uploads.delete');
     Route::get('files/{id}/restore', 'UploadController@restore')->name('uploads.restore');
 
+    Route::view('helpers', 'helpers')->name('helpers');
 });
