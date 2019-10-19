@@ -81,60 +81,30 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
+/***/ "./resources/js/bookmark.js":
+/*!**********************************!*\
+  !*** ./resources/js/bookmark.js ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// // window._ = require('lodash');
-// require('bootstrap');
-// window.Vue = require('vue');
-// window.axios = require('axios');
-// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-// let token = document.head.querySelector('meta[name="csrf-token"]');
-// if (token) {
-//     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-// } else {
-//     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-// }
-// // Separate Vue instance to communicate between components that are siblings
-// window.EventBus = new Vue();
-// // autoloading vuejs components
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-// const app = new Vue({
-//     el: '#app',
-// });
+location.href = "http://localhost:8000" + '/bookmark?url=' + encodeURIComponent(location.href) + '&title=' + encodeURIComponent(document.title) + '&selection=' + encodeURIComponent(window.getSelection().toString());
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/***/ 1:
+/*!****************************************!*\
+  !*** multi ./resources/js/bookmark.js ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/tadas/Projects/notes/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/tadas/Projects/notes/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /Users/tadas/Projects/notes/resources/js/bookmark.js */"./resources/js/bookmark.js");
 
 
 /***/ })

@@ -20,8 +20,6 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/home', 'HomeController@index')->name('home');
-
     Route::resource('notes', 'NoteController');
     Route::get('notes/{id}/delete', 'NoteController@delete')->name('notes.delete');
     Route::get('notes/{id}/restore', 'NoteController@restore')->name('notes.restore');
@@ -38,4 +36,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('files/{id}/restore', 'UploadController@restore')->name('uploads.restore');
 
     Route::view('helpers', 'helpers')->name('helpers');
+    Route::get('bookmark', 'BookmarkController')->name('bookmark');
+
 });
