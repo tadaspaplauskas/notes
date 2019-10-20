@@ -37,6 +37,10 @@
             </li>
 
             <li class="nav-item">
+              <a class="nav-link" href="{{ route('public', auth()->user()) }}">{{ __('Public page') }}</a>
+            </li>
+
+            <li class="nav-item">
               <a class="nav-link" href="{{ route('uploads.index') }}">{{ __('Uploads') }}</a>
             </li>
 

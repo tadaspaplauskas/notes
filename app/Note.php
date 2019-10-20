@@ -61,6 +61,11 @@ class Note extends Model
         return $html;
     }
 
+    public function getHtmlWithUploadsAttribute()
+    {
+        return $this->html;
+    }
+
     public static function setSearchPhrase($phrase)
     {
         static::$searchPhrase = $phrase;

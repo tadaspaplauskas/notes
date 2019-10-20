@@ -37,5 +37,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::view('helpers', 'helpers')->name('helpers');
     Route::get('bookmark', 'BookmarkController')->name('bookmark');
-
 });
+
+Route::get('public/{user}', 'PublicPageController')->name('public');
