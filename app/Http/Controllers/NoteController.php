@@ -124,9 +124,11 @@ class NoteController extends Controller
     {
         $note = $request->user()->notes()->findOrFail($id);
 
+        $tag = $note->tag;
+
         $note->delete();
 
-        return redirect()->back()
+        return redirect($tag ? route('tags.notes.index', $tag) : route('notes.index'))
             ->withMessage('Deleted.
                 <a href="' . route('notes.restore', $note) . '">Undo.</a>');
     }

@@ -84,6 +84,10 @@
             class="btn btn-secondary"
             accesskey="b"
             title="ctrl + alt + b">Back</a>
+
+          <a href="{{ route('notes.delete', $note) }}" class="btn btn-danger float-right">
+            Delete
+          </a>
       </div>
   </div>
 </div>
