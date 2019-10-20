@@ -85,9 +85,11 @@
             accesskey="b"
             title="ctrl + alt + b">Back</a>
 
-          <a href="{{ route('notes.delete', $note) }}" class="btn btn-danger float-right">
-            Delete
-          </a>
+          @if ($note->exists)
+            <a href="{{ route('notes.delete', $note) }}" class="btn btn-danger float-right">
+              Delete
+            </a>
+          @endif
       </div>
   </div>
 </div>
