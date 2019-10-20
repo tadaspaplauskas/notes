@@ -65,7 +65,9 @@
       <div class="row border-top pt-3"
         title="{{ 'Updated ' .  $note->updated_at->diffForHumans() }}">
         <div class="col">
-          {!! $note->html !!}
+
+          @include('notes.content', ['note' => $note])
+
         </div>
         <div class="col-2 small text-right pb-3">
           @if ($note->tag)

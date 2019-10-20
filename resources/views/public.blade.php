@@ -35,7 +35,9 @@
       <h2 id="{{ $tag->name }}">{{ $tag->name }}</h2>
 
       @foreach ($tag->notes as $note)
-        {!! $note->htmlWithUploads !!}
+
+        @include('notes.content', ['note' => $note])
+
       @endforeach
 
     @endforeach
