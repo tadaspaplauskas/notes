@@ -6,19 +6,11 @@
     @endforeach
   </datalist>
 
-  @error('content')
-    <div class="alert alert-warning">{{ $message }}</div>
-  @enderror
+  @foreach ($errors->all() as $error)
+    <div class="alert alert-warning">{{ $error }}</div>
+  @endforeach
 
-  @error('tag')
-    <div class="alert alert-warning">{{ $message }}</div>
-  @enderror
-
-  @error('files')
-    <div class="alert alert-warning">{{ $message }}</div>
-  @enderror
-
-    <div class="row mb-3">
+  <div class="row mb-3">
     <div class="{{ $note->content ? 'col-md-6' : 'col' }}">
       <label for="content" class="sr-only">Content</label>
 
