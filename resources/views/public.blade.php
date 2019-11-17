@@ -15,7 +15,7 @@
         <ul class="navbar-nav mr-auto">
           @auth
             <li class="nav-item">
-              <a class="nav-link" href="{{ url()->previous() }}" title="Back">←</a>
+              <a class="nav-link" href="{{ url()->current() === url()->previous() ? route('notes.index') : url()->previous() }}" title="Back">←</a>
             </li>
           @endauth
           <li class="nav-item">
