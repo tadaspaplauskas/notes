@@ -15,7 +15,7 @@
       page you wish to save for future reference.
     </p>
 
-    <a href="javascript:(function(){var d = document.createElement('script');d.setAttribute('src', '{{ asset('js/bookmark.js') }}' + Date.now());document.body.appendChild(d);}());">
+    <a href="javascript:(function(){var d = document.createElement('script');d.setAttribute('src', '{{ asset('js/bookmark.js') }}?' + Date.now());document.body.appendChild(d);}());">
       Send to KB
     </a>
 
