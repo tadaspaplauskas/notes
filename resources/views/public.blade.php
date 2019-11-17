@@ -13,6 +13,11 @@
   <nav class="navbar navbar-expand-md navbar-light bg-white" id="index">
     <div class="container">
         <ul class="navbar-nav mr-auto">
+          @auth
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url()->previous() }}" title="Back">←</a>
+            </li>
+          @endauth
           <li class="nav-item">
             <a class="nav-link" href="#index">{{ $user->name }}' KB</a>
           </li>
