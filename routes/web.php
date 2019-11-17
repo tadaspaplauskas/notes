@@ -39,4 +39,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('bookmark', 'BookmarkController')->name('bookmark');
 });
 
-Route::get('public/{user}', 'PublicPageController')->name('public');
+Route::get('u/{user}', 'PublicPageController')->name('public');
