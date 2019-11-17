@@ -45,13 +45,16 @@ class TagController extends Controller
 
         $request->validate([
             'new_name' => 'required',
+            'private' => 'boolean',
         ]);
 
         $tag->name = $request->input('new_name');
+        $tag->private = $request->has('private');
+
         $tag->save();
 
         return redirect()->route('tags.notes.index', $tag)
-            ->withMessage('Tag was renamed');
+            ->withMessage('Tag was updated');
     }
 
     public function destroy(Request $request, $id)

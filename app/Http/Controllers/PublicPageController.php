@@ -17,7 +17,7 @@ class PublicPageController extends Controller
     {
         return view('public', [
             'user' => $user,
-            'tags' => $user->tags()->orderBy('name', 'asc')->get(),
+            'tags' => $user->tags()->public()->orderBy('name', 'asc')->get(),
         ]);
     }
 }

@@ -15,7 +15,7 @@
             @enderror
 
             <div class="form-group">
-              <label for="new_name">Rename {{ $tag->name }}</label>
+              <label for="new_name">Name</label>
               <input type="text"
                 name="new_name"
                 id="new_name"
@@ -23,6 +23,13 @@
                 class="form-control"
                 placeholder="New name"
                 value="{{ old('new_name', optional($tag)->name) }}">
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="1" id="private" name="private" {{ $tag->private ? 'checked' : '' }}>
+              <label class="form-check-label" for="private">
+                Private <small>(skip from the public page)</small>
+              </label>
             </div>
 
             <button class="btn btn-secondary">Save</button>

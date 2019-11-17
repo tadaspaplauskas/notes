@@ -9,7 +9,11 @@ class Tag extends Model
 {
     protected $fillable = [
         'name',
+        'private',
+    ];
 
+    protected $casts = [
+        'private' => 'boolean',
     ];
 
     public function notes()
@@ -21,5 +25,10 @@ class Tag extends Model
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = Str::kebab($value);
+    }
+
+    public function scopePublic($q)
+    {
+        $q->where('private', false);
     }
 }
