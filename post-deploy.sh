@@ -1,4 +1,6 @@
 #!/bin/bash
+git checkout -f
+git clean -fd
 composer install
 npm install
 npm run prod
